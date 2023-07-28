@@ -24,5 +24,6 @@ public class GameStateChessTest {
         GameStateChess gameStateChess = new GameStateChess();
         GameStateChess gameStateChessOther = gameStateChess.copy();
         assertNotEquals(gameStateChessOther, gameStateChess);
+        gameStateChessOther.print();
     }
 }

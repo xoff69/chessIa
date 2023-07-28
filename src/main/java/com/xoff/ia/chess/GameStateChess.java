@@ -6,6 +6,7 @@ import com.xoff.ia.chess.piece.King;
 import com.xoff.ia.chess.piece.Knight;
 import com.xoff.ia.chess.piece.Pawn;
 import com.xoff.ia.chess.piece.Piece;
+import com.xoff.ia.chess.piece.PieceType;
 import com.xoff.ia.chess.piece.Queen;
 import com.xoff.ia.chess.piece.Rook;
 import com.xoff.ia.common.GameState;
@@ -29,7 +30,7 @@ public class GameStateChess extends GameState {
     private Piece blackKing;
     private Piece whiteKing;
 
-    private Move lastMove;
+    private PieceMove lastMove;
 
 
     public GameStateChess() {
@@ -164,18 +165,27 @@ public class GameStateChess extends GameState {
 
 
         GameStateChess gameStateChess = new GameStateChess();
-        /*
-         private Color currentPlayer;
-    private Piece[][] pieces;
+        gameStateChess.setCurrentPlayer(currentPlayer);
+        if (lastMove != null) gameStateChess.setLastMove(lastMove.copy());
+        for (int row = 0; row < 8; row++) {
 
-    private List<Piece> blackPieces;
-    private List<Piece> whitePieces;
+            for (int col = 0; col < 8; col++) {
 
-    private Piece blackKing;
-    private Piece whiteKing;
+                gameStateChess.getPieces()[row][col] = getPieces()[row][col].copy();
+                if (gameStateChess.getPieces()[row][col].getColor() == Color.WHITE) {
+                    gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[row][col]);
+                    if (gameStateChess.getPieces()[row][col].getPieceType() == PieceType.KING) {
+                        gameStateChess.setWhiteKing(gameStateChess.getPieces()[row][col]);
+                    }
+                } else {
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[row][col]);
+                    if (gameStateChess.getPieces()[row][col].getPieceType() == PieceType.KING) {
+                        gameStateChess.setBlackKing(gameStateChess.getPieces()[row][col]);
+                    }
+                }
+            }
+        }
 
-    private Move lastMove;
-         */
         return gameStateChess;
 
     }

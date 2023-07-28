@@ -30,12 +30,19 @@ public class Piece implements Copyable {
     }
 
     public Piece copy() {
-        Piece piece = new Piece(row, column, pieceType);
-        piece.setColor(color);
-        piece.setHasMoved(hasMoved);
-        for (Case caset : possiblesDeplacements) {
-            piece.getPossiblesDeplacements().add(caset);
+        Piece piece =null;
+
+        switch (pieceType){
+            case ROOK : piece=new Rook(row, column,color);break;
+            case BISHOP:  piece=new Rook(row, column,color);break;
+            case KNIGHT:  piece=new Rook(row, column,color);break;
+            case QUEEN:  piece=new Queen(row, column,color);break;
+            case KING:  piece=new King(row, column,color);break;
+            case PAWN:  piece=new Pawn(row, column,color);break;
+            default: piece=new Empty(row,column);
         }
+
+        piece.setHasMoved(hasMoved);
 
         return piece;
     }
