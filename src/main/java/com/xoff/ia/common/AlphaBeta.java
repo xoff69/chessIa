@@ -3,42 +3,8 @@ package com.xoff.ia.common;
 import java.util.List;
 
 public class AlphaBeta implements AlgorithmBestMove {
-// FIXME : methode static
-/*
-def alphabeta(gameState: GameState, depth:int, maximizingPlayer:bool,alpha=float('-inf'),beta=float('+inf')) :
 
-    if (depth==0) or (gameState.isTerminal()):
-        return gameState.score(),None
-
-
-    if maximizingPlayer:
-        value =float('-inf')
-        possible_moves=gameState.getPossibleMoves()
-        for move in possible_moves:
-            child=gameState.getNewState(move)
-            t=alphabeta(child,depth-1,False,alpha,beta)
-            if t[0]>value:
-                value=t[0]
-                bestmove=move
-            if value>= beta:
-                break
-            alpha=max(alpha,value)
-
-    else: #(* minimizing player *)
-        value =float('+inf')
-        possible_moves = gameState.getPossibleMoves()
-        for move in possible_moves:
-            child = gameState.getNewState(move)
-            t = alphabeta(child, depth - 1, True,alpha,beta)
-            if  t[0]<value:
-                value = t[0]
-                bestmove = move
-            if value <= alpha:
-                break
-            beta = min(beta, value)
-    return value,bestmove
- */
-    public static Eval minimax(GameState gameState, int depth, boolean maximizingPlayer) {
+    public static Eval alphabeta(GameState gameState, int depth, boolean maximizingPlayer,float alpha,float beta) {
         Move bestMove = null;
         if ((depth == 0) || (gameState.isTerminal())) {
             return new Eval(gameState.score(), null);
@@ -55,13 +21,14 @@ def alphabeta(gameState: GameState, depth:int, maximizingPlayer:bool,alpha=float
                 GameState child = gameState.getNewState(move);
 
 
-                Eval eval = minimax(child, depth - 1, false);
+                Eval eval = alphabeta(child, depth - 1, false,alpha,beta);
                 if (eval.getScore() > value) {
                     value = eval.getScore();
                     bestMove = eval.getBestMove();
                 }
-
-
+                if (value>= beta)
+                        break;
+                alpha=Math.max(alpha,value);
             }
             return new Eval(value, bestMove);
         } else {
@@ -71,12 +38,14 @@ def alphabeta(gameState: GameState, depth:int, maximizingPlayer:bool,alpha=float
             for (Move move : moves) {
 
                 GameState child = gameState.getNewState(move);
-                Eval eval = minimax(child, depth - 1, true);
+                Eval eval = alphabeta(child, depth - 1, true,alpha,beta);
                 if (eval.getScore() < value) {
                     value = eval.getScore();
                     bestMove = eval.getBestMove();
                 }
-
+                if (value <= alpha)
+                break;
+                        beta = Math.min(beta, value);
 
             }
             return new Eval(value, bestMove);
