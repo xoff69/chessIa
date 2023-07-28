@@ -3,6 +3,8 @@
 .idea/*.*
 .idea/*
 .idea/libraries/*
+target/*
+target/**
 # Log file
 *.log
 
