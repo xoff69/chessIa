@@ -10,6 +10,7 @@ public class Piece {
     Color color;
     PieceType pieceType;
     int [][] possiblesDeplacements;
+    boolean hasMoved;
 
 
 }
