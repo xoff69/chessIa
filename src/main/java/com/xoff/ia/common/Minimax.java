@@ -5,7 +5,7 @@ import java.util.List;
 public class Minimax implements  AlgorithmBestMove {
 
 
-
+// TODO on renvoie aussi le move
     public static float minimax(GameState gameState, int depth, boolean maximizingPlayer) {
 
             if ((depth==0) || (gameState.isTerminal())){
