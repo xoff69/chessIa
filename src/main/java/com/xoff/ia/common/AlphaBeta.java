@@ -3,7 +3,7 @@ package com.xoff.ia.common;
 import java.util.List;
 
 public class AlphaBeta implements AlgorithmBestMove {
-
+// FIXME : methode static
 /*
 def alphabeta(gameState: GameState, depth:int, maximizingPlayer:bool,alpha=float('-inf'),beta=float('+inf')) :
 

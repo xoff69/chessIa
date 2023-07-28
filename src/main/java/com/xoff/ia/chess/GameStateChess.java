@@ -3,10 +3,13 @@ package com.xoff.ia.chess;
 import com.xoff.ia.chess.piece.Piece;
 import com.xoff.ia.common.GameState;
 import com.xoff.ia.common.Move;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Getter
+@Setter
 public class GameStateChess extends GameState {
 
     private Color currentPlayer;
@@ -22,6 +25,13 @@ public class GameStateChess extends GameState {
 
 
     public GameStateChess() {
+        pieces=new Piece[8][8];
+        for (int row=0;row<8;row++){
+
+            for (int col=0;col<8;col++){
+                pieces[row][col]=Piece.empty();
+            }
+        }
 
     }
 

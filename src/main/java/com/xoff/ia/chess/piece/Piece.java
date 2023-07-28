@@ -15,5 +15,11 @@ public class Piece {
     int row;
     int column;
 
+    public static Piece empty(){
+        Piece piece=new Piece();
+        piece.setPieceType(PieceType.EMPTY);
+        return piece;
+    }
+
 
 }
