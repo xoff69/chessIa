@@ -1,4 +1,4 @@
-package com.xoff.chessia;
+package com.xoff.ia.chess;
 
 import com.xoff.ia.common.Minimax;
 

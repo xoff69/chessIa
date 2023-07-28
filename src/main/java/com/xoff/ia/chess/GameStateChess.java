@@ -1,4 +1,4 @@
-package com.xoff.chessia;
+package com.xoff.ia.chess;
 
 import com.xoff.ia.common.GameState;
 import com.xoff.ia.common.Move;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateChess extends GameState {
+
+    private Color currentPlayer;
     public GameStateChess() {
 
     }
