@@ -15,9 +15,16 @@ public class Piece {
     int row;
     int column;
 
-    public static Piece empty(){
-        Piece piece=new Piece();
-        piece.setPieceType(PieceType.EMPTY);
+    public Piece(int row,int column,PieceType pieceType){
+        hasMoved=false;
+        this.row=row;
+        this.column=column;
+        this.pieceType=pieceType;
+        possiblesDeplacements=new int[8][8];
+        color=Color.WHITE;
+    }
+    public static Piece empty(int raw,int column){
+        Piece piece=new Piece(raw,column,PieceType.EMPTY);
         return piece;
     }
 

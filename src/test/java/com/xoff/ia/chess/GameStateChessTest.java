@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GameStateChessTest {
     @Test
     @DisplayName("GameStateChessTest constructor")
-    public void testMinimax() {
+    public void testGameStateChess() {
         GameStateChess gameStateChess = new GameStateChess();
 
         assertEquals(PieceType.EMPTY, gameStateChess.getPieces()[4][4].getPieceType());
