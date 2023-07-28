@@ -9,8 +9,11 @@ import lombok.Setter;
 public class Piece {
     Color color;
     PieceType pieceType;
-    int [][] possiblesDeplacements;
+    int[][] possiblesDeplacements;
     boolean hasMoved;
+    // position on board
+    int row;
+    int column;
 
 
 }

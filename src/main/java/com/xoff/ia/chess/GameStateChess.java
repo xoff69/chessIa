@@ -12,7 +12,22 @@ public class GameStateChess extends GameState {
     private Color currentPlayer;
     private Piece[][] pieces;
 
+    private List<Piece> blackPieces;
+    private List<Piece> whitePieces;
+
+    private Piece blackKing;
+    private Piece whiteKing;
+
+    private Move lastMove;
+
+
     public GameStateChess() {
+
+    }
+
+    public GameState copy() {
+
+        return new GameStateChess();
 
     }
 

@@ -7,6 +7,8 @@ public abstract class GameState {
 
     private Winner winner;
 
+    public abstract GameState copy();
+
     public abstract boolean isTerminal();
 
     public abstract float score();
