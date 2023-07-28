@@ -2,6 +2,8 @@ package com.xoff.ia.chess.piece;
 
 import com.xoff.ia.chess.Case;
 import com.xoff.ia.chess.Color;
+import com.xoff.ia.chess.GameStateChess;
+import com.xoff.ia.chess.PieceMove;
 import com.xoff.ia.common.Copyable;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +13,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Piece implements Copyable {
+public abstract class Piece implements Copyable {
     Color color;
     PieceType pieceType;
-    List<Case> possiblesDeplacements;
+    List<Case> possiblesMoves;
     boolean hasMoved;
     // position on board
     int row;
@@ -25,10 +27,10 @@ public class Piece implements Copyable {
         this.row = row;
         this.column = column;
         this.pieceType = pieceType;
-        possiblesDeplacements = new ArrayList();
+        possiblesMoves = new ArrayList();
         color = Color.WHITE;
     }
-
+public abstract List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess);
     public Piece copy() {
         Piece piece =null;
 

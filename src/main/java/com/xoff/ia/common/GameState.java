@@ -15,7 +15,7 @@ public abstract class GameState implements Copyable {
 
     public abstract List<Move> getPossibleMoves();
 
-    public abstract GameState getNewState(Move move);
+    public abstract GameState play(Move move);
 
 
 }

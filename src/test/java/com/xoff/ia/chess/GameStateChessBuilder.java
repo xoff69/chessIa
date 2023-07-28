@@ -33,9 +33,9 @@ public class GameStateChessBuilder {
             move3.setMoveType(MoveType.NA);
         }
 
-        gameStateChess=gameStateChess.getNewState(move1);
-        gameStateChess=gameStateChess.getNewState(move2);
-        gameStateChess= gameStateChess.getNewState(move3);
+        gameStateChess=gameStateChess.play(move1);
+        gameStateChess=gameStateChess.play(move2);
+        gameStateChess= gameStateChess.play(move3);
         return gameStateChess;
     }
 }

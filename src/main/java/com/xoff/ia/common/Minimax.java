@@ -19,7 +19,7 @@ public class Minimax implements AlgorithmBestMove {
 
             for (Move move : moves) {
 
-                GameState child = gameState.getNewState(move);
+                GameState child = gameState.play(move);
 
 
                 Eval eval = minimax(child, depth - 1, false);
@@ -37,7 +37,7 @@ public class Minimax implements AlgorithmBestMove {
             List<Move> moves = gameState.getPossibleMoves();
             for (Move move : moves) {
 
-                GameState child = gameState.getNewState(move);
+                GameState child = gameState.play(move);
                 Eval eval = minimax(child, depth - 1, true);
                 if (eval.getScore() < value) {
                     value = eval.getScore();

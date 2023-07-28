@@ -18,7 +18,7 @@ public class AlphaBeta implements AlgorithmBestMove {
 
             for (Move move : moves) {
 
-                GameState child = gameState.getNewState(move);
+                GameState child = gameState.play(move);
 
 
                 Eval eval = alphabeta(child, depth - 1, false, alpha, beta);
@@ -36,7 +36,7 @@ public class AlphaBeta implements AlgorithmBestMove {
             List<Move> moves = gameState.getPossibleMoves();
             for (Move move : moves) {
 
-                GameState child = gameState.getNewState(move);
+                GameState child = gameState.play(move);
                 Eval eval = alphabeta(child, depth - 1, true, alpha, beta);
                 if (eval.getScore() < value) {
                     value = eval.getScore();

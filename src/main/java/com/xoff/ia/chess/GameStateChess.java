@@ -199,16 +199,26 @@ public class GameStateChess extends GameState {
     }
 
     public List<Move> getPossibleMoves() {
-        return new ArrayList<>();
+        List<Move> moves=new ArrayList<>();
+        List<Piece> pieces=(currentPlayer==Color.WHITE)?whitePieces:blackPieces;
+        for (Piece piece:pieces){
+            moves.addAll(piece.generatePossibleMoves(this));
+        }
+        return moves;
     }
 
-    public GameStateChess getNewState(Move move) {
+    public GameStateChess play(Move move) {
         lastMove=(PieceMove)move;
+// empty source
+        // fill destination
 
+        // update liste des pieces de chaque couleur
+
+        // update king
         return this;
     }
 
-    private boolean isEchec(){
+    public boolean isEchec(){
         return false;
     }
 
