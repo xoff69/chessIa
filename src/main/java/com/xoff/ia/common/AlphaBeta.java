@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AlphaBeta implements AlgorithmBestMove {
 
-    public static Eval alphabeta(GameState gameState, int depth, boolean maximizingPlayer,float alpha,float beta) {
+    public static Eval alphabeta(GameState gameState, int depth, boolean maximizingPlayer, float alpha, float beta) {
         Move bestMove = null;
         if ((depth == 0) || (gameState.isTerminal())) {
             return new Eval(gameState.score(), null);
@@ -21,14 +21,13 @@ public class AlphaBeta implements AlgorithmBestMove {
                 GameState child = gameState.getNewState(move);
 
 
-                Eval eval = alphabeta(child, depth - 1, false,alpha,beta);
+                Eval eval = alphabeta(child, depth - 1, false, alpha, beta);
                 if (eval.getScore() > value) {
                     value = eval.getScore();
                     bestMove = eval.getBestMove();
                 }
-                if (value>= beta)
-                        break;
-                alpha=Math.max(alpha,value);
+                if (value >= beta) break;
+                alpha = Math.max(alpha, value);
             }
             return new Eval(value, bestMove);
         } else {
@@ -38,14 +37,13 @@ public class AlphaBeta implements AlgorithmBestMove {
             for (Move move : moves) {
 
                 GameState child = gameState.getNewState(move);
-                Eval eval = alphabeta(child, depth - 1, true,alpha,beta);
+                Eval eval = alphabeta(child, depth - 1, true, alpha, beta);
                 if (eval.getScore() < value) {
                     value = eval.getScore();
                     bestMove = eval.getBestMove();
                 }
-                if (value <= alpha)
-                break;
-                        beta = Math.min(beta, value);
+                if (value <= alpha) break;
+                beta = Math.min(beta, value);
 
             }
             return new Eval(value, bestMove);

@@ -2,7 +2,7 @@ package com.xoff.ia.common;
 
 import java.util.List;
 
-public abstract class GameState {
+public abstract class GameState implements Copyable {
 // ajouter le winner 1 ou 2 ou draq
 
     private Winner winner;

@@ -1,6 +1,5 @@
 package com.xoff.ia.chess;
 
-import com.xoff.ia.chess.GameStateChess;
 import com.xoff.ia.common.Eval;
 import com.xoff.ia.common.Minimax;
 import org.junit.jupiter.api.DisplayName;
