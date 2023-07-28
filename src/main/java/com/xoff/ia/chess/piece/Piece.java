@@ -30,18 +30,39 @@ public abstract class Piece implements Copyable {
         possiblesMoves = new ArrayList();
         color = Color.WHITE;
     }
-public abstract List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess);
-    public Piece copy() {
-        Piece piece =null;
 
-        switch (pieceType){
-            case ROOK : piece=new Rook(row, column,color);break;
-            case BISHOP:  piece=new Rook(row, column,color);break;
-            case KNIGHT:  piece=new Rook(row, column,color);break;
-            case QUEEN:  piece=new Queen(row, column,color);break;
-            case KING:  piece=new King(row, column,color);break;
-            case PAWN:  piece=new Pawn(row, column,color);break;
-            default: piece=new Empty(row,column);
+    public abstract List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess);
+
+    public boolean validateMove(PieceMove pieceMove, GameStateChess gameStateChess) {
+        Color color = gameStateChess.getCurrentPlayer();
+        gameStateChess.play(pieceMove);
+        return (!gameStateChess.isEchec(color));
+    }
+
+    public Piece copy() {
+        Piece piece = null;
+
+        switch (pieceType) {
+            case ROOK:
+                piece = new Rook(row, column, color);
+                break;
+            case BISHOP:
+                piece = new Rook(row, column, color);
+                break;
+            case KNIGHT:
+                piece = new Rook(row, column, color);
+                break;
+            case QUEEN:
+                piece = new Queen(row, column, color);
+                break;
+            case KING:
+                piece = new King(row, column, color);
+                break;
+            case PAWN:
+                piece = new Pawn(row, column, color);
+                break;
+            default:
+                piece = new Empty(row, column);
         }
 
         piece.setHasMoved(hasMoved);

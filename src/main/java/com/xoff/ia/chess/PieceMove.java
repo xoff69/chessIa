@@ -1,6 +1,5 @@
 package com.xoff.ia.chess;
 
-import com.xoff.ia.common.Copyable;
 import com.xoff.ia.common.Move;
 import lombok.Getter;
 import lombok.Setter;

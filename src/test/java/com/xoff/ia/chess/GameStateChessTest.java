@@ -26,11 +26,12 @@ public class GameStateChessTest {
         assertNotEquals(gameStateChessOther, gameStateChess);
         gameStateChessOther.print();
     }
+
     @Test
     @DisplayName("GameStateChessTest nest state")
     public void testGameStateChessNextState() {
         GameStateChess gameStateChess = GameStateChessBuilder.build3Moves();
         gameStateChess.print();
-     //   assertEquals(gameStateChess.getLastMove(),);
+        //   assertEquals(gameStateChess.getLastMove(),);
     }
 }

@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Knight extends Piece {
-    public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess){
-        return new ArrayList<>();
-    }
     public Knight(int row, int column, Color color) {
         super(row, column, PieceType.KNIGHT);
         setColor(color);
+    }
+
+    public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
+        return new ArrayList<>();
     }
 
     public String toString() {

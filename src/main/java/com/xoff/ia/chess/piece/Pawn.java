@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends Piece {
-    public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess){
-        return new ArrayList<>();
-    }
     public Pawn(int row, int column, Color color) {
         super(row, column, PieceType.PAWN);
         setColor(color);
+    }
+
+    public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
+        return new ArrayList<>();
     }
 
     public String toString() {

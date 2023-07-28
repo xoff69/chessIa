@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class King extends Piece {
-    public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess){
-        return new ArrayList<>();
-    }
     public King(int row, int column, Color color) {
         super(row, column, PieceType.KING);
         setColor(color);
+    }
+
+    public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
+        return new ArrayList<>();
     }
 
     public String toString() {

@@ -166,7 +166,7 @@ public class GameStateChess extends GameState {
 
         GameStateChess gameStateChess = new GameStateChess();
         gameStateChess.setCurrentPlayer(currentPlayer);
-        if (lastMove != null) gameStateChess.setLastMove((PieceMove)lastMove.copy());
+        if (lastMove != null) gameStateChess.setLastMove((PieceMove) lastMove.copy());
         for (int row = 0; row < 8; row++) {
 
             for (int col = 0; col < 8; col++) {
@@ -191,7 +191,7 @@ public class GameStateChess extends GameState {
     }
 
     public boolean isTerminal() {
-        return getPossibleMoves().size()==0;
+        return getPossibleMoves().size() == 0;
     }
 
     public float score() {
@@ -199,26 +199,27 @@ public class GameStateChess extends GameState {
     }
 
     public List<Move> getPossibleMoves() {
-        List<Move> moves=new ArrayList<>();
-        List<Piece> pieces=(currentPlayer==Color.WHITE)?whitePieces:blackPieces;
-        for (Piece piece:pieces){
+        List<Move> moves = new ArrayList<>();
+        List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
+        for (Piece piece : pieces) {
             moves.addAll(piece.generatePossibleMoves(this));
         }
         return moves;
     }
 
     public GameStateChess play(Move move) {
-        lastMove=(PieceMove)move;
+        lastMove = (PieceMove) move;
 // empty source
         // fill destination
 
         // update liste des pieces de chaque couleur
 
         // update king
+        // change le joueur courant
         return this;
     }
 
-    public boolean isEchec(){
+    public boolean isEchec(Color color) {
         return false;
     }
 

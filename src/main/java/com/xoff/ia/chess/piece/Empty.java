@@ -12,9 +12,11 @@ public class Empty extends Piece {
         super(row, column, PieceType.EMPTY);
 
     }
-    public  List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess){
+
+    public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
         return new ArrayList<>();
     }
+
     public String toString() {
         return ".";
     }

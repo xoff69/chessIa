@@ -1,4 +1,4 @@
 package com.xoff.ia.common;
 
-public interface Move extends Copyable{
+public interface Move extends Copyable {
 }
