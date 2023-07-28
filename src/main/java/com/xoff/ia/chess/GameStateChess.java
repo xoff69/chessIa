@@ -166,7 +166,7 @@ public class GameStateChess extends GameState {
 
         GameStateChess gameStateChess = new GameStateChess();
         gameStateChess.setCurrentPlayer(currentPlayer);
-        if (lastMove != null) gameStateChess.setLastMove(lastMove.copy());
+        if (lastMove != null) gameStateChess.setLastMove((PieceMove)lastMove.copy());
         for (int row = 0; row < 8; row++) {
 
             for (int col = 0; col < 8; col++) {
@@ -191,18 +191,25 @@ public class GameStateChess extends GameState {
     }
 
     public boolean isTerminal() {
-        return true;
+        return getPossibleMoves().size()==0;
     }
 
     public float score() {
         return 5.0f;
     }
 
-    public List<Move> getPossibleMove() {
+    public List<Move> getPossibleMoves() {
         return new ArrayList<>();
     }
 
-    public GameState getNewState(Move move) {
-        return new GameStateChess();
+    public GameStateChess getNewState(Move move) {
+        lastMove=(PieceMove)move;
+
+        return this;
     }
+
+    private boolean isEchec(){
+        return false;
+    }
+
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PieceMove implements Move, Copyable {
+public class PieceMove implements Move {
     Case source;
     Case destination;
     MoveType moveType;

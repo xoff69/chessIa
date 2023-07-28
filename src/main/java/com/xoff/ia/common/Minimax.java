@@ -14,7 +14,7 @@ public class Minimax implements AlgorithmBestMove {
         if (maximizingPlayer) {
             float value = Float.NEGATIVE_INFINITY;
 
-            List<Move> moves = gameState.getPossibleMove();
+            List<Move> moves = gameState.getPossibleMoves();
 
 
             for (Move move : moves) {
@@ -34,7 +34,7 @@ public class Minimax implements AlgorithmBestMove {
         } else {
             float value = Float.POSITIVE_INFINITY;
 
-            List<Move> moves = gameState.getPossibleMove();
+            List<Move> moves = gameState.getPossibleMoves();
             for (Move move : moves) {
 
                 GameState child = gameState.getNewState(move);

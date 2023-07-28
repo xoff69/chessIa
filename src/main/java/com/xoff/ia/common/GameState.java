@@ -13,7 +13,7 @@ public abstract class GameState implements Copyable {
 
     public abstract float score();
 
-    public abstract List<Move> getPossibleMove();
+    public abstract List<Move> getPossibleMoves();
 
     public abstract GameState getNewState(Move move);
 
