@@ -2,37 +2,51 @@ package com.xoff.ia.common;
 
 import java.util.List;
 
-public class Minimax implements  AlgorithmBestMove {
+public class Minimax implements AlgorithmBestMove {
 
 
-// TODO on renvoie aussi le move
-    public static float minimax(GameState gameState, int depth, boolean maximizingPlayer) {
-
-            if ((depth==0) || (gameState.isTerminal())){
-            return gameState.score();
+    public static Eval minimax(GameState gameState, int depth, boolean maximizingPlayer) {
+        Move bestMove = null;
+        if ((depth == 0) || (gameState.isTerminal())) {
+            return new Eval(gameState.score(), null);
         }
 
-            if (maximizingPlayer) {
-                float value = Float.NEGATIVE_INFINITY;
+        if (maximizingPlayer) {
+            float value = Float.NEGATIVE_INFINITY;
 
-                List<Move> moves  = gameState.getPossibleMove();
-                for (Move move:moves) {
+            List<Move> moves = gameState.getPossibleMove();
 
-                    GameState child = gameState.getNewState(move);
-                    value = Math.max(value, minimax(child, depth - 1, false));
+
+            for (Move move : moves) {
+
+                GameState child = gameState.getNewState(move);
+
+
+                Eval eval = minimax(child, depth - 1, false);
+                if (eval.getScore() > value) {
+                    value = eval.getScore();
+                    bestMove = eval.getBestMove();
                 }
-                return value;
+
+
             }
-            else {
-                float value = Float.POSITIVE_INFINITY;
+            return new Eval(value, bestMove);
+        } else {
+            float value = Float.POSITIVE_INFINITY;
 
-                List<Move> moves  = gameState.getPossibleMove();
-                for (Move move:moves) {
+            List<Move> moves = gameState.getPossibleMove();
+            for (Move move : moves) {
 
-                    GameState child = gameState.getNewState(move);
-                    value = Math.min(value, minimax(child, depth - 1, true));
+                GameState child = gameState.getNewState(move);
+                Eval eval = minimax(child, depth - 1, true);
+                if (eval.getScore() < value) {
+                    value = eval.getScore();
+                    bestMove = eval.getBestMove();
                 }
-                return value;
+
+
             }
-}
+            return new Eval(value, bestMove);
+        }
+    }
 }

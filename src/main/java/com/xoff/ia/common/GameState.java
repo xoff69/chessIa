@@ -2,15 +2,18 @@ package com.xoff.ia.common;
 
 import java.util.List;
 
-public interface GameState {
+public abstract class GameState {
 // ajouter le winner 1 ou 2 ou draq
 
-    public boolean isTerminal();
-    public float score();
+    private Winner winner;
 
-    public List<Move> getPossibleMove();
+    public abstract boolean isTerminal();
 
-    public GameState getNewState(Move move);
+    public abstract float score();
+
+    public abstract List<Move> getPossibleMove();
+
+    public abstract GameState getNewState(Move move);
 
 
 }
