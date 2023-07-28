@@ -1,0 +1,6 @@
+com\xoff\chessia\GameStateChess.class
+com\xoff\ia\common\AlgorithmBestMove.class
+com\xoff\chessia\Main.class
+com\xoff\ia\common\Move.class
+com\xoff\ia\common\GameState.class
+com\xoff\ia\common\Minimax.class
