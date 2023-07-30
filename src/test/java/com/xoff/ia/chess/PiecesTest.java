@@ -30,6 +30,7 @@ public class PiecesTest {
         }
         assertEquals(moves.size(), 13);
     }
+
     @Test
     @DisplayName("testRook")
     public void testRook() {
@@ -46,6 +47,7 @@ public class PiecesTest {
         }
         assertEquals(moves.size(), 14);
     }
+
     @Test
     @DisplayName("testQueen")
     public void testQueen() {
@@ -62,6 +64,7 @@ public class PiecesTest {
         }
         assertEquals(moves.size(), 27);
     }
+
     @Test
     @DisplayName("testPawn1step")
     public void testPawn1step() {
@@ -78,6 +81,7 @@ public class PiecesTest {
         }
         assertEquals(moves.size(), 1);
     }
+
     @Test
     @DisplayName("testPawn1step")
     public void testPawn2step() {
@@ -94,6 +98,7 @@ public class PiecesTest {
         }
         assertEquals(moves.size(), 2);
     }
+
     @Test
     @DisplayName("testKing")
     public void testKing() {

@@ -248,9 +248,11 @@ public class GameStateChess extends GameState {
 
     public GameStateChess play(Move move) {
 
+        GameStateChess gameStateChess = this.copy();
+
         PieceMove currentMove = (PieceMove) move;
-        Piece source = getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
-        Piece pieceOfList = findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
+        Piece source = gameStateChess.getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
+        Piece pieceOfList = gameStateChess.findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
 
         if (pieceOfList == null) {
             System.out.println("VIDE " + toString() + " move =" + currentMove.completeInfo());
@@ -266,7 +268,7 @@ public class GameStateChess extends GameState {
 
         // if EP or promotion getPieceType==PAWN, useless to test
         if (source.getPieceType() == PieceType.PAWN || currentMove.getMoveType() == MoveType.TAKE) {
-            nbMoveWithoutTakeOrPawnMove = 0;
+            gameStateChess.setNbMoveWithoutTakeOrPawnMove(0);
         }
 
         if (currentMove.getMoveType() == MoveType.NA) {
@@ -274,7 +276,7 @@ public class GameStateChess extends GameState {
             pieceOfList.setRow(currentMove.getDestination().getRow());
             pieceOfList.setColumn(currentMove.getDestination().getColumn());
             // fill destination
-            getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
+            gameStateChess.getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
 
 
         } else if (currentMove.getMoveType() == MoveType.TAKE) {
@@ -282,9 +284,9 @@ public class GameStateChess extends GameState {
             pieceOfList.setRow(currentMove.getDestination().getRow());
             pieceOfList.setColumn(currentMove.getDestination().getColumn());
             // fill destination
-            removePieceIntoPieces(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE, currentMove.getDestination().getRow(), currentMove.getDestination().getColumn());
+            gameStateChess.removePieceIntoPieces(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE, currentMove.getDestination().getRow(), currentMove.getDestination().getColumn());
 
-            getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
+            gameStateChess.getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
 
         } else if (currentMove.getMoveType() == MoveType.SHORT_CASTLE || currentMove.getMoveType() == MoveType.LONG_CASTLE) {
             // TODO
@@ -292,14 +294,14 @@ public class GameStateChess extends GameState {
             // TODO
         }
 
-        getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()] = new Empty(currentMove.getSource().getRow(), currentMove.getSource().getColumn());
+        gameStateChess.getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()] = new Empty(currentMove.getSource().getRow(), currentMove.getSource().getColumn());
 
-        getPositions().add(toString());
-        lastMove = currentMove;
-        currentPlayer = currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE;
+        gameStateChess.getPositions().add(toString());
+        gameStateChess.setLastMove(currentMove);
+        gameStateChess.setCurrentPlayer(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE);
 
 
-        return this.copy();
+        return gameStateChess;
     }
 
     public boolean isCheck() {

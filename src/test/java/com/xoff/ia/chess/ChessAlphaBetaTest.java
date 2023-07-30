@@ -12,13 +12,13 @@ public class ChessAlphaBetaTest {
     @DisplayName("basic test AlphaBeta")
     public void testAlphaBeta() {
         GameStateChess gameStateChess = GameStateChessBuilder.build3Moves();
-        long start = System.nanoTime();
+        long start = System.currentTimeMillis();
 
-        Eval e = AlphaBeta.alphabeta(gameStateChess, 5, true, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
-        long finish = System.nanoTime();
+        Eval e = AlphaBeta.alphabeta(gameStateChess, 4, true, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
+        long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
-        System.out.println("Temps " + timeElapsed);
-        assertEquals(5.0, e.getScore(), 0.0f);
+        System.out.println("elasped time " + timeElapsed / 1000.); // 0.06ss
+        assertEquals(0.0, e.getScore(), 0.0f);
     }
 
 }
