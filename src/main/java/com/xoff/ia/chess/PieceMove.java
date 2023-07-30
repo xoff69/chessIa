@@ -1,6 +1,7 @@
 package com.xoff.ia.chess;
 
 import com.xoff.ia.chess.piece.Piece;
+import com.xoff.ia.chess.piece.PieceType;
 import com.xoff.ia.common.Move;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,9 +29,11 @@ public class PieceMove implements Move {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(piece.toString());
-        sb.append(source);
-        if (moveType==MoveType.TAKE){
+        if (piece.getPieceType()!= PieceType.PAWN) {
+            sb.append(piece.toString());
+        }
+       // sb.append(source); // TODO si c est une prise et que c est un pion mettre la column
+        if (moveType == MoveType.TAKE) {
             sb.append("x");
         }
         sb.append(destination);

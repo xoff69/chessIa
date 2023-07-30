@@ -29,11 +29,12 @@ public abstract class Piece implements Copyable {
         color = Color.WHITE;
     }
 
-    private boolean isInBounds(int value){
-        return (value>=0&&value<8);
+    private boolean isInBounds(int value) {
+        return (value >= 0 && value < 8);
     }
+
     protected boolean evaluateAndNext(GameStateChess gameStateChess, int r, int c, List<PieceMove> moves) {
-        if (!isInBounds(r)||!isInBounds(c)){
+        if (!isInBounds(r) || !isInBounds(c)) {
             return false;
         }
         PieceMove pieceMove = new PieceMove(this);
@@ -42,10 +43,12 @@ public abstract class Piece implements Copyable {
 
         Piece piece = gameStateChess.getPieces()[r][c];
         if (piece.getPieceType() == PieceType.EMPTY) {
+
             Case destination = new Case(r, c);
 
             pieceMove.setDestination(destination);
             pieceMove.setMoveType(MoveType.NA);
+
             moves.add(pieceMove);
             return true;
         } else if (piece.getColor() != this.color) {

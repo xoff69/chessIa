@@ -218,12 +218,13 @@ public class GameStateChess extends GameState {
         for (Piece piece : pieces) {
             moves.addAll(piece.generatePossibleMoves(this));
         }
+        // TODO chaque move, le jouer et voir si ca met nous meme en echec
         return moves;
     }
 
     public GameStateChess play(Move move) {
         lastMove = (PieceMove) move;
-// empty source
+        // empty source
         // fill destination
 
         // update liste des pieces de chaque couleur
