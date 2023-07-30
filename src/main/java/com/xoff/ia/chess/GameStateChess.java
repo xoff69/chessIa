@@ -254,15 +254,7 @@ public class GameStateChess extends GameState {
         Piece source = gameStateChess.getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
         Piece pieceOfList = gameStateChess.findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
 
-        if (pieceOfList == null) {
-            System.out.println("VIDE " + toString() + " move =" + currentMove.completeInfo());
-           /*
-           for (String s : positions) {
-               System.out.println("position  "+s);
-           }
-           */
 
-        }
 
         pieceOfList.setHasMoved(true);
 
