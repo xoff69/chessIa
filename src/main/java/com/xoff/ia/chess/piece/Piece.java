@@ -14,12 +14,12 @@ import java.util.List;
 @Getter
 @Setter
 public abstract class Piece implements Copyable {
-    Color color;
-    PieceType pieceType;
-    boolean hasMoved;
+    private Color color;
+    private PieceType pieceType;
+    private boolean hasMoved;
     // position on board
-    int row;
-    int column;
+    private int row;
+    private int column;
 
     public Piece(int row, int column, PieceType pieceType) {
         hasMoved = false;
@@ -63,13 +63,13 @@ public abstract class Piece implements Copyable {
             return false;
         }
     }
-
+public abstract float estimateValue();
     public abstract List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess);
 
     public boolean validateMove(PieceMove pieceMove, GameStateChess gameStateChess) {
-        Color color = gameStateChess.getCurrentPlayer();
+
         gameStateChess.play(pieceMove);
-        return (!gameStateChess.isCheck(color));
+        return (!gameStateChess.isCheck());
     }
 
     public Piece copy() {

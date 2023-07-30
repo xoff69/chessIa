@@ -9,9 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PieceMove implements Move {
-    Case source;
-    Case destination;
-    MoveType moveType;
+    private Case source;
+    private Case destination;
+    private MoveType moveType;
 
     private Piece piece;
 

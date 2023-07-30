@@ -12,19 +12,21 @@ public class Knight extends Piece {
         super(row, column, PieceType.KNIGHT);
         setColor(color);
     }
-
+    public  float estimateValue(){
+        return 3.0f;
+    }
     public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
         List<PieceMove> moves = new ArrayList<>();
 
-        evaluateAndNext(gameStateChess, row - 1, column - 2, moves);
-        evaluateAndNext(gameStateChess, row + 1, column - 2, moves);
-        evaluateAndNext(gameStateChess, row - 1, column + 2, moves);
-        evaluateAndNext(gameStateChess, row + 1, column + 2, moves);
+        evaluateAndNext(gameStateChess, getRow()  - 1, getColumn()  - 2, moves);
+        evaluateAndNext(gameStateChess, getRow()  + 1, getColumn()  - 2, moves);
+        evaluateAndNext(gameStateChess, getRow()  - 1, getColumn()  + 2, moves);
+        evaluateAndNext(gameStateChess, getRow()  + 1, getColumn()  + 2, moves);
 
-        evaluateAndNext(gameStateChess, row - 2, column - 1, moves);
-        evaluateAndNext(gameStateChess, row + 2, column - 1, moves);
-        evaluateAndNext(gameStateChess, row - 2, column + 1, moves);
-        evaluateAndNext(gameStateChess, row + 2, column + 1, moves);
+        evaluateAndNext(gameStateChess, getRow()  - 2, getColumn()  - 1, moves);
+        evaluateAndNext(gameStateChess, getRow()  + 2, getColumn()  - 1, moves);
+        evaluateAndNext(gameStateChess, getRow()  - 2, getColumn()  + 1, moves);
+        evaluateAndNext(gameStateChess, getRow()  + 2, getColumn()  + 1, moves);
 
         return moves;
 

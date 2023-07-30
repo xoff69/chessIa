@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Empty extends Piece {
-
+    public  float estimateValue(){
+        return 0.f;
+    }
     public Empty(int row, int column) {
         super(row, column, PieceType.EMPTY);
 

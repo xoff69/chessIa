@@ -12,19 +12,21 @@ public class King extends Piece {
         super(row, column, PieceType.KING);
         setColor(color);
     }
-
+    public  float estimateValue(){
+        return 1000f;
+    }
     public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
 
 
         List<PieceMove> moves = new ArrayList<>();
-        evaluateAndNext(gameStateChess, row, column + 1, moves);
-        evaluateAndNext(gameStateChess, row, column - 1, moves);
-        evaluateAndNext(gameStateChess, row + 1, column + 1, moves);
-        evaluateAndNext(gameStateChess, row + 1, column - 1, moves);
-        evaluateAndNext(gameStateChess, row + 1, column, moves);
-        evaluateAndNext(gameStateChess, row + 1, column, moves);
-        evaluateAndNext(gameStateChess, row - 1, column + 1, moves);
-        evaluateAndNext(gameStateChess, row - 1, column - 1, moves);
+        evaluateAndNext(gameStateChess, getRow(), getColumn() + 1, moves);
+        evaluateAndNext(gameStateChess, getRow(), getColumn()  - 1, moves);
+        evaluateAndNext(gameStateChess, getRow() + 1, getColumn()  + 1, moves);
+        evaluateAndNext(gameStateChess, getRow() + 1, getColumn()  - 1, moves);
+        evaluateAndNext(gameStateChess, getRow() + 1, getColumn() , moves);
+        evaluateAndNext(gameStateChess, getRow() + 1, getColumn(), moves);
+        evaluateAndNext(gameStateChess, getRow() - 1, getColumn()  + 1, moves);
+        evaluateAndNext(gameStateChess, getRow() - 1, getColumn()  - 1, moves);
 
         if (!isHasMoved()) {
             // FIXME ne pas etre en echec pendant le roque

@@ -12,13 +12,15 @@ public class Rook extends Piece {
         super(row, column, PieceType.ROOK);
         setColor(color);
     }
-
+    public  float estimateValue(){
+        return 6.0f;
+    }
     public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
 
         List<PieceMove> moves = new ArrayList<>();
         {
-            int r = row;
-            int c = column - 1;
+            int r = getRow();
+            int c = getColumn() - 1;
             while (c > -1) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;
@@ -28,8 +30,8 @@ public class Rook extends Piece {
             }
         }
         {
-            int r = row;
-            int c = column + 1;
+            int r = getRow();
+            int c = getColumn() + 1;
             while (c < 8) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;
@@ -39,8 +41,8 @@ public class Rook extends Piece {
             }
         }
         {
-            int r = row - 1;
-            int c = column;
+            int r = getRow() - 1;
+            int c = getColumn();
             while (r > -1) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;
@@ -50,8 +52,8 @@ public class Rook extends Piece {
             }
         }
         {
-            int r = row + 1;
-            int c = column;
+            int r = getRow() + 1;
+            int c = getColumn();
             while (r < 8) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;

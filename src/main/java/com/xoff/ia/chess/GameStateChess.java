@@ -204,13 +204,7 @@ public class GameStateChess extends GameState {
 
     }
 
-    public boolean isTerminal() {
-        return getPossibleMoves().size() == 0;
-    }
 
-    public float score() {
-        return 5.0f;
-    }
 
     public List<Move> getPossibleMoves() {
         List<Move> moves = new ArrayList<>();
@@ -222,22 +216,105 @@ public class GameStateChess extends GameState {
         return moves;
     }
 
+    private Piece findPieceIntoPieces(Color color,int row,int column){
+        List<Piece> pieces=(color==Color.WHITE)?whitePieces:blackPieces;
+        for (Piece piece:pieces){
+            if (piece.getRow()==row&&piece.getColumn()==column){
+                return piece;
+            }
+        }
+
+        return null;
+    }
+    private void removePieceIntoPieces(Color color,int row,int column){
+        List<Piece> pieces=(color==Color.WHITE)?whitePieces:blackPieces;
+        for (Piece piece:pieces){
+            if (piece.getRow()==row&&piece.getColumn()==column){
+                pieces.remove(piece);
+                break;
+            }
+        }
+
+    }
     public GameStateChess play(Move move) {
-        lastMove = (PieceMove) move;
-        // empty source
-        // fill destination
 
-        // update liste des pieces de chaque couleur
+        PieceMove currentMove = (PieceMove) move;
+        Piece source = getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
+        Piece pieceOfList=findPieceIntoPieces(currentPlayer,source.getRow(), source.getColumn());
+        pieceOfList.setHasMoved(true);
 
-        // update king
-        // change le joueur courant
-        // sauver la position
-        // update nb coup dans prise ...
+        // if EP or promotion getPieceType==PAWN, useless to test
+        if (source.getPieceType()==PieceType.PAWN||currentMove.getMoveType()==MoveType.TAKE){
+            nbMoveWithoutTakeOrPawnMove=0;
+        }
+
+        if (currentMove.getMoveType() == MoveType.NA){
+
+            pieceOfList.setRow(currentMove.getDestination().getRow());
+            pieceOfList.setColumn(currentMove.getDestination().getColumn());
+             // fill destination
+           getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()]=pieceOfList;
+
+
+    }
+        else if (currentMove.getMoveType() == MoveType.TAKE){
+
+            pieceOfList.setRow(currentMove.getDestination().getRow());
+            pieceOfList.setColumn(currentMove.getDestination().getColumn());
+            // fill destination
+            removePieceIntoPieces(currentPlayer==Color.WHITE?Color.BLACK:Color.WHITE,currentMove.getDestination().getRow(), currentMove.getDestination().getColumn());
+
+            getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()]=pieceOfList;
+
+        }
+        else if (currentMove.getMoveType()==MoveType.SHORT_CASTLE||currentMove.getMoveType() == MoveType.LONG_CASTLE){
+            // TODO
+        }
+        else if (currentMove.getMoveType()==MoveType.PROMOTION_BISHOP||currentMove.getMoveType() == MoveType.PROMOTION_KNIGHT
+                ||currentMove.getMoveType() == MoveType.PROMOTION_QUEEN||currentMove.getMoveType() == MoveType.PROMOTION_ROOK){
+            // TODO
+        }
+
+        getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()]=new Empty(currentMove.getSource().getRow(),currentMove.getSource().getColumn());
+
+        getPositions().add(toString());
+        lastMove=currentMove;
+    currentPlayer=currentPlayer==Color.WHITE?Color.BLACK:Color.WHITE;
+
+
+
         return this;
     }
 
-    public boolean isCheck(Color color) {
+    public boolean isCheck() {
+        List<Move> moves=getPossibleMoves();
+        Piece myKing=(currentPlayer==Color.WHITE)?whiteKing:blackKing;
+        for (Move move:moves){
+            PieceMove pieceMove=(PieceMove) move;
+            Case destination = pieceMove.getDestination();
+            if (myKing.getRow()==destination.getRow()&&myKing.getColumn()==destination.getColumn()){
+                return true;
+            }
+        }
         return false;
+    }
+
+    public boolean isTerminal() {
+        List<Move> moves=getPossibleMoves();
+       return moves.size()==0;
+    }
+
+    public float score() {
+        float score=0f;
+        List<Piece> pieces=(currentPlayer==Color.WHITE)?whitePieces:blackPieces;
+        for (Piece piece:pieces){
+           score=score+piece.estimateValue();
+        }
+        List<Piece> piecesOpp=(currentPlayer!=Color.WHITE)?whitePieces:blackPieces;
+        for (Piece piece:pieces){
+            score=score-piece.estimateValue();
+        }
+        return score;
     }
 
 }

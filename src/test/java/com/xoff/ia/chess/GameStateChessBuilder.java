@@ -7,20 +7,20 @@ public class GameStateChessBuilder {
 
     public static GameStateChess build3Moves() {
         GameStateChess gameStateChess = new GameStateChess();
-        PieceMove move1 = new PieceMove(new Pawn(1, 5, Color.WHITE));
+        PieceMove move1 = new PieceMove(new Pawn(1, 4, Color.WHITE));
         // e4
         {
-            Case source = new Case(1, 5);
-            Case destination = new Case(3, 5);
+            Case source = new Case(1, 4);
+            Case destination = new Case(3, 4);
 
             move1.setSource(source);
             move1.setDestination(destination);
             move1.setMoveType(MoveType.NA);
         }
-        PieceMove move2 = new PieceMove(new Pawn(4, 5, Color.BLACK)); //e5
+        PieceMove move2 = new PieceMove(new Pawn(4, 4, Color.BLACK)); //e5
         {
-            Case source = new Case(6, 5);
-            Case destination = new Case(4, 5);
+            Case source = new Case(6, 4);
+            Case destination = new Case(4, 4);
 
             move2.setSource(source);
             move2.setDestination(destination);
