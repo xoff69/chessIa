@@ -12,14 +12,16 @@ public class Bishop extends Piece {
         super(row, column, PieceType.BISHOP);
         setColor(color);
     }
-    public  float estimateValue(){
+
+    public float estimateValue() {
         return 3.0f;
     }
+
     public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
         List<PieceMove> moves = new ArrayList<>();
         {
-            int r = getRow()  - 1;
-            int c = getColumn()  - 1;
+            int r = getRow() - 1;
+            int c = getColumn() - 1;
             while (r > -1 && c > -1) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;
@@ -29,8 +31,8 @@ public class Bishop extends Piece {
             }
         }
         {
-            int r = getRow()  + 1;
-            int c = getColumn()  - 1;
+            int r = getRow() + 1;
+            int c = getColumn() - 1;
             while (r < 8 && c > -1) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;
@@ -40,8 +42,8 @@ public class Bishop extends Piece {
             }
         }
         {
-            int r = getRow()  - 1;
-            int c = getColumn()  + 1;
+            int r = getRow() - 1;
+            int c = getColumn() + 1;
             while (r > -1 && c < 8) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;
@@ -52,8 +54,8 @@ public class Bishop extends Piece {
         }
         {
             int r = getRow() + 1;
-            int c = getColumn()  + 1;
-            while (r > 8 && c < 8) {
+            int c = getColumn() + 1;
+            while (r < 8 && c < 8) {
                 if (!evaluateAndNext(gameStateChess, r, c, moves)) {
                     break;
                 }

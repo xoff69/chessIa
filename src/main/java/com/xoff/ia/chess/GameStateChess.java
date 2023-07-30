@@ -35,6 +35,8 @@ public class GameStateChess extends GameState {
     private List<String> positions;
     private int nbMoveWithoutTakeOrPawnMove;
 
+    //TODO lister les movers + copy + to string
+
     public GameStateChess() {
         lastMove = null;
         currentPlayer = Color.WHITE;
@@ -43,7 +45,7 @@ public class GameStateChess extends GameState {
         whitePieces = new ArrayList<>();
         blackPieces = new ArrayList<>();
         pieces = new Piece[8][8];
-        for (int row = 0; row < 8; row++) {
+        for (int row = 2; row < 6; row++) {
 
             for (int col = 0; col < 8; col++) {
                 pieces[row][col] = new Empty(row, col);
@@ -149,6 +151,7 @@ public class GameStateChess extends GameState {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("state:");
         sb.append(currentPlayer).append("-");
 
         for (int row = 7; row >= 0; row--) {
@@ -157,21 +160,27 @@ public class GameStateChess extends GameState {
                 sb.append(pieces[row][col] + " ");
             }
         }
-        sb.append("---");
-        sb.append("White ");
-        for (Piece piece : whitePieces) {
-            sb.append(piece + " ");
-        }
-        sb.append("---");
-        sb.append("Black ");
-        for (Piece piece : blackPieces) {
-            sb.append(piece + " ");
-        }
+
         return sb.toString();
     }
 
-    public GameStateChess copy() {
+    public void empty() {
+        lastMove = null;
+        currentPlayer = Color.WHITE;
+        positions.clear();
+        nbMoveWithoutTakeOrPawnMove = 0;
+        whitePieces.clear();
+        blackPieces.clear();
 
+        for (int row = 0; row < 8; row++) {
+
+            for (int col = 0; col < 8; col++) {
+                pieces[row][col] = new Empty(row, col);
+            }
+        }
+    }
+
+    public GameStateChess copy() {
 
         GameStateChess gameStateChess = new GameStateChess();
         gameStateChess.setCurrentPlayer(currentPlayer);
@@ -205,7 +214,6 @@ public class GameStateChess extends GameState {
     }
 
 
-
     public List<Move> getPossibleMoves() {
         List<Move> moves = new ArrayList<>();
         List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
@@ -216,83 +224,91 @@ public class GameStateChess extends GameState {
         return moves;
     }
 
-    private Piece findPieceIntoPieces(Color color,int row,int column){
-        List<Piece> pieces=(color==Color.WHITE)?whitePieces:blackPieces;
-        for (Piece piece:pieces){
-            if (piece.getRow()==row&&piece.getColumn()==column){
+    private Piece findPieceIntoPieces(Color color, int row, int column) {
+        List<Piece> pieces = (color == Color.WHITE) ? whitePieces : blackPieces;
+        for (Piece piece : pieces) {
+            if (piece.getRow() == row && piece.getColumn() == column) {
                 return piece;
             }
         }
 
         return null;
     }
-    private void removePieceIntoPieces(Color color,int row,int column){
-        List<Piece> pieces=(color==Color.WHITE)?whitePieces:blackPieces;
-        for (Piece piece:pieces){
-            if (piece.getRow()==row&&piece.getColumn()==column){
+
+    private void removePieceIntoPieces(Color color, int row, int column) {
+        List<Piece> pieces = (color == Color.WHITE) ? whitePieces : blackPieces;
+        for (Piece piece : pieces) {
+            if (piece.getRow() == row && piece.getColumn() == column) {
                 pieces.remove(piece);
                 break;
             }
         }
 
     }
+
     public GameStateChess play(Move move) {
 
         PieceMove currentMove = (PieceMove) move;
         Piece source = getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
-        Piece pieceOfList=findPieceIntoPieces(currentPlayer,source.getRow(), source.getColumn());
+        Piece pieceOfList = findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
+
+        if (pieceOfList == null) {
+            System.out.println("VIDE " + toString() + " move =" + currentMove.completeInfo());
+           /*
+           for (String s : positions) {
+               System.out.println("position  "+s);
+           }
+           */
+
+        }
+
         pieceOfList.setHasMoved(true);
 
         // if EP or promotion getPieceType==PAWN, useless to test
-        if (source.getPieceType()==PieceType.PAWN||currentMove.getMoveType()==MoveType.TAKE){
-            nbMoveWithoutTakeOrPawnMove=0;
+        if (source.getPieceType() == PieceType.PAWN || currentMove.getMoveType() == MoveType.TAKE) {
+            nbMoveWithoutTakeOrPawnMove = 0;
         }
 
-        if (currentMove.getMoveType() == MoveType.NA){
-
-            pieceOfList.setRow(currentMove.getDestination().getRow());
-            pieceOfList.setColumn(currentMove.getDestination().getColumn());
-             // fill destination
-           getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()]=pieceOfList;
-
-
-    }
-        else if (currentMove.getMoveType() == MoveType.TAKE){
+        if (currentMove.getMoveType() == MoveType.NA) {
 
             pieceOfList.setRow(currentMove.getDestination().getRow());
             pieceOfList.setColumn(currentMove.getDestination().getColumn());
             // fill destination
-            removePieceIntoPieces(currentPlayer==Color.WHITE?Color.BLACK:Color.WHITE,currentMove.getDestination().getRow(), currentMove.getDestination().getColumn());
+            getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
 
-            getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()]=pieceOfList;
 
-        }
-        else if (currentMove.getMoveType()==MoveType.SHORT_CASTLE||currentMove.getMoveType() == MoveType.LONG_CASTLE){
+        } else if (currentMove.getMoveType() == MoveType.TAKE) {
+
+            pieceOfList.setRow(currentMove.getDestination().getRow());
+            pieceOfList.setColumn(currentMove.getDestination().getColumn());
+            // fill destination
+            removePieceIntoPieces(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE, currentMove.getDestination().getRow(), currentMove.getDestination().getColumn());
+
+            getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
+
+        } else if (currentMove.getMoveType() == MoveType.SHORT_CASTLE || currentMove.getMoveType() == MoveType.LONG_CASTLE) {
+            // TODO
+        } else if (currentMove.getMoveType() == MoveType.PROMOTION_BISHOP || currentMove.getMoveType() == MoveType.PROMOTION_KNIGHT || currentMove.getMoveType() == MoveType.PROMOTION_QUEEN || currentMove.getMoveType() == MoveType.PROMOTION_ROOK) {
             // TODO
         }
-        else if (currentMove.getMoveType()==MoveType.PROMOTION_BISHOP||currentMove.getMoveType() == MoveType.PROMOTION_KNIGHT
-                ||currentMove.getMoveType() == MoveType.PROMOTION_QUEEN||currentMove.getMoveType() == MoveType.PROMOTION_ROOK){
-            // TODO
-        }
 
-        getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()]=new Empty(currentMove.getSource().getRow(),currentMove.getSource().getColumn());
+        getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()] = new Empty(currentMove.getSource().getRow(), currentMove.getSource().getColumn());
 
         getPositions().add(toString());
-        lastMove=currentMove;
-    currentPlayer=currentPlayer==Color.WHITE?Color.BLACK:Color.WHITE;
+        lastMove = currentMove;
+        currentPlayer = currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE;
 
 
-
-        return this;
+        return this.copy();
     }
 
     public boolean isCheck() {
-        List<Move> moves=getPossibleMoves();
-        Piece myKing=(currentPlayer==Color.WHITE)?whiteKing:blackKing;
-        for (Move move:moves){
-            PieceMove pieceMove=(PieceMove) move;
+        List<Move> moves = getPossibleMoves();
+        Piece myKing = (currentPlayer == Color.WHITE) ? whiteKing : blackKing;
+        for (Move move : moves) {
+            PieceMove pieceMove = (PieceMove) move;
             Case destination = pieceMove.getDestination();
-            if (myKing.getRow()==destination.getRow()&&myKing.getColumn()==destination.getColumn()){
+            if (myKing.getRow() == destination.getRow() && myKing.getColumn() == destination.getColumn()) {
                 return true;
             }
         }
@@ -300,19 +316,19 @@ public class GameStateChess extends GameState {
     }
 
     public boolean isTerminal() {
-        List<Move> moves=getPossibleMoves();
-       return moves.size()==0;
+        List<Move> moves = getPossibleMoves();
+        return moves.size() == 0;
     }
 
     public float score() {
-        float score=0f;
-        List<Piece> pieces=(currentPlayer==Color.WHITE)?whitePieces:blackPieces;
-        for (Piece piece:pieces){
-           score=score+piece.estimateValue();
+        float score = 0f;
+        List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
+        for (Piece piece : pieces) {
+            score = score + piece.estimateValue();
         }
-        List<Piece> piecesOpp=(currentPlayer!=Color.WHITE)?whitePieces:blackPieces;
-        for (Piece piece:pieces){
-            score=score-piece.estimateValue();
+        List<Piece> piecesOpp = (currentPlayer != Color.WHITE) ? whitePieces : blackPieces;
+        for (Piece piece : pieces) {
+            score = score - piece.estimateValue();
         }
         return score;
     }

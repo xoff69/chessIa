@@ -63,7 +63,9 @@ public abstract class Piece implements Copyable {
             return false;
         }
     }
-public abstract float estimateValue();
+
+    public abstract float estimateValue();
+
     public abstract List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess);
 
     public boolean validateMove(PieceMove pieceMove, GameStateChess gameStateChess) {
@@ -80,10 +82,10 @@ public abstract float estimateValue();
                 piece = new Rook(row, column, color);
                 break;
             case BISHOP:
-                piece = new Rook(row, column, color);
+                piece = new Bishop(row, column, color);
                 break;
             case KNIGHT:
-                piece = new Rook(row, column, color);
+                piece = new Knight(row, column, color);
                 break;
             case QUEEN:
                 piece = new Queen(row, column, color);

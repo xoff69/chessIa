@@ -12,9 +12,11 @@ public class Rook extends Piece {
         super(row, column, PieceType.ROOK);
         setColor(color);
     }
-    public  float estimateValue(){
+
+    public float estimateValue() {
         return 6.0f;
     }
+
     public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
 
         List<PieceMove> moves = new ArrayList<>();

@@ -27,12 +27,24 @@ public class PieceMove implements Move {
         return pieceMove;
     }
 
-    public String toString() {
+    public String completeInfo() {
         StringBuilder sb = new StringBuilder();
-        if (piece.getPieceType()!= PieceType.PAWN) {
+        if (piece.getPieceType() != PieceType.PAWN) {
             sb.append(piece.toString());
         }
-       // sb.append(source); // TODO si c est une prise et que c est un pion mettre la column
+        sb.append(source);
+        sb.append(moveType);
+
+        sb.append(destination);
+        return sb.toString();
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if (piece.getPieceType() != PieceType.PAWN) {
+            sb.append(piece.toString());
+        }
+        // sb.append(source); // TODO si c est une prise et que c est un pion mettre la column
         if (moveType == MoveType.TAKE) {
             sb.append("x");
         }

@@ -11,12 +11,12 @@ public class ChessMinimaxTest {
     @Test
     @DisplayName("basic test Minimax")
     public void testMinimax() {
-      GameStateChess gameStateChess = GameStateChessBuilder.build3Moves();
+        GameStateChess gameStateChess = GameStateChessBuilder.build4Moves();
         long start = System.nanoTime();
         Eval e = Minimax.minimax(gameStateChess, 5, true);
         long finish = System.nanoTime();
         long timeElapsed = finish - start;
-        System.out.println("Temps "+timeElapsed);
+        System.out.println("Temps " + timeElapsed);
         assertEquals(5.0, e.getScore(), 0.0f);
     }
 

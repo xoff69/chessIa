@@ -17,7 +17,7 @@ public class ChessAlphaBetaTest {
         Eval e = AlphaBeta.alphabeta(gameStateChess, 5, true, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
         long finish = System.nanoTime();
         long timeElapsed = finish - start;
-        System.out.println("Temps "+timeElapsed);
+        System.out.println("Temps " + timeElapsed);
         assertEquals(5.0, e.getScore(), 0.0f);
     }
 

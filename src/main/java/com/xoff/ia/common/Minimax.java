@@ -13,14 +13,11 @@ public class Minimax implements AlgorithmBestMove {
 
         if (maximizingPlayer) {
             float value = Float.NEGATIVE_INFINITY;
-
             List<Move> moves = gameState.getPossibleMoves();
-
 
             for (Move move : moves) {
 
                 GameState child = gameState.play(move);
-
 
                 Eval eval = minimax(child, depth - 1, false);
                 if (eval.getScore() > value) {
