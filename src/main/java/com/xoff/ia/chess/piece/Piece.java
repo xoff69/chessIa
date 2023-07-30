@@ -3,12 +3,12 @@ package com.xoff.ia.chess.piece;
 import com.xoff.ia.chess.Case;
 import com.xoff.ia.chess.Color;
 import com.xoff.ia.chess.GameStateChess;
+import com.xoff.ia.chess.MoveType;
 import com.xoff.ia.chess.PieceMove;
 import com.xoff.ia.common.Copyable;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,7 +16,6 @@ import java.util.List;
 public abstract class Piece implements Copyable {
     Color color;
     PieceType pieceType;
-    List<Case> possiblesMoves;
     boolean hasMoved;
     // position on board
     int row;
@@ -27,8 +26,39 @@ public abstract class Piece implements Copyable {
         this.row = row;
         this.column = column;
         this.pieceType = pieceType;
-        possiblesMoves = new ArrayList();
         color = Color.WHITE;
+    }
+
+    private boolean isInBounds(int value){
+        return (value>=0&&value<8);
+    }
+    protected boolean evaluateAndNext(GameStateChess gameStateChess, int r, int c, List<PieceMove> moves) {
+        if (!isInBounds(r)||!isInBounds(c)){
+            return false;
+        }
+        PieceMove pieceMove = new PieceMove(this);
+        Case source = new Case(row, column);
+        pieceMove.setSource(source);
+
+        Piece piece = gameStateChess.getPieces()[r][c];
+        if (piece.getPieceType() == PieceType.EMPTY) {
+            Case destination = new Case(r, c);
+
+            pieceMove.setDestination(destination);
+            pieceMove.setMoveType(MoveType.NA);
+            moves.add(pieceMove);
+            return true;
+        } else if (piece.getColor() != this.color) {
+
+            Case destination = new Case(r, c);
+
+            pieceMove.setDestination(destination);
+            pieceMove.setMoveType(MoveType.TAKE);
+            moves.add(pieceMove);
+            return false;
+        } else {
+            return false;
+        }
     }
 
     public abstract List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess);
@@ -36,7 +66,7 @@ public abstract class Piece implements Copyable {
     public boolean validateMove(PieceMove pieceMove, GameStateChess gameStateChess) {
         Color color = gameStateChess.getCurrentPlayer();
         gameStateChess.play(pieceMove);
-        return (!gameStateChess.isEchec(color));
+        return (!gameStateChess.isCheck(color));
     }
 
     public Piece copy() {

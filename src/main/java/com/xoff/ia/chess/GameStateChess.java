@@ -32,9 +32,14 @@ public class GameStateChess extends GameState {
 
     private PieceMove lastMove;
 
+    private List<String> positions;
+    private int nbMoveWithoutTakeOrPawnMove;
 
     public GameStateChess() {
         lastMove = null;
+        currentPlayer = Color.WHITE;
+        positions = new ArrayList<>();
+        nbMoveWithoutTakeOrPawnMove = 0;
         whitePieces = new ArrayList<>();
         blackPieces = new ArrayList<>();
         pieces = new Piece[8][8];
@@ -142,23 +147,27 @@ public class GameStateChess extends GameState {
         }
     }
 
-    public void print() {
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(currentPlayer).append("-");
+
         for (int row = 7; row >= 0; row--) {
-            System.out.print("\n");
+            sb.append("\n");
             for (int col = 0; col < 8; col++) {
-                System.out.print(pieces[row][col] + " ");
+                sb.append(pieces[row][col] + " ");
             }
         }
-        System.out.println("---");
-        System.out.println("White ");
+        sb.append("---");
+        sb.append("White ");
         for (Piece piece : whitePieces) {
-            System.out.print(piece + " ");
+            sb.append(piece + " ");
         }
-        System.out.println("---");
-        System.out.println("Black ");
+        sb.append("---");
+        sb.append("Black ");
         for (Piece piece : blackPieces) {
-            System.out.print(piece + " ");
+            sb.append(piece + " ");
         }
+        return sb.toString();
     }
 
     public GameStateChess copy() {
@@ -166,6 +175,11 @@ public class GameStateChess extends GameState {
 
         GameStateChess gameStateChess = new GameStateChess();
         gameStateChess.setCurrentPlayer(currentPlayer);
+
+        gameStateChess.nbMoveWithoutTakeOrPawnMove = nbMoveWithoutTakeOrPawnMove;
+        for (String s : positions) {
+            gameStateChess.positions.add(s);
+        }
         if (lastMove != null) gameStateChess.setLastMove((PieceMove) lastMove.copy());
         for (int row = 0; row < 8; row++) {
 
@@ -216,10 +230,12 @@ public class GameStateChess extends GameState {
 
         // update king
         // change le joueur courant
+        // sauver la position
+        // update nb coup dans prise ...
         return this;
     }
 
-    public boolean isEchec(Color color) {
+    public boolean isCheck(Color color) {
         return false;
     }
 

@@ -1,6 +1,7 @@
 package com.xoff.ia.chess;
 
 import com.xoff.ia.chess.piece.PieceType;
+import com.xoff.ia.common.Move;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class GameStateChessTest {
     @DisplayName("GameStateChessTest constructor")
     public void testGameStateChess() {
         GameStateChess gameStateChess = new GameStateChess();
-        gameStateChess.print();
+        System.out.println(gameStateChess);
         assertEquals(PieceType.EMPTY, gameStateChess.getPieces()[4][4].getPieceType());
         assertEquals(PieceType.ROOK, gameStateChess.getWhitePieces().get(0).getPieceType());
         assertEquals(PieceType.ROOK, gameStateChess.getPieces()[0][0].getPieceType());
@@ -24,14 +25,18 @@ public class GameStateChessTest {
         GameStateChess gameStateChess = new GameStateChess();
         GameStateChess gameStateChessOther = gameStateChess.copy();
         assertNotEquals(gameStateChessOther, gameStateChess);
-        gameStateChessOther.print();
+        System.out.println(gameStateChessOther);
     }
 
     @Test
     @DisplayName("GameStateChessTest nest state")
     public void testGameStateChessNextState() {
         GameStateChess gameStateChess = GameStateChessBuilder.build3Moves();
-        gameStateChess.print();
-        //   assertEquals(gameStateChess.getLastMove(),);
+        System.out.println(gameStateChess);
+
+        System.out.println("moves:");
+        for (Move move : gameStateChess.getPossibleMoves()) {
+            System.out.println(move);
+        }
     }
 }

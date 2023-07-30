@@ -14,7 +14,21 @@ public class Knight extends Piece {
     }
 
     public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
-        return new ArrayList<>();
+        List<PieceMove> moves = new ArrayList<>();
+
+        evaluateAndNext(gameStateChess, row - 1, column - 2, moves);
+        evaluateAndNext(gameStateChess, row + 1, column - 2, moves);
+        evaluateAndNext(gameStateChess, row - 1, column + 2, moves);
+        evaluateAndNext(gameStateChess, row + 1, column + 2, moves);
+
+        evaluateAndNext(gameStateChess, row - 2, column - 1, moves);
+        evaluateAndNext(gameStateChess, row + 2, column - 1, moves);
+        evaluateAndNext(gameStateChess, row - 2, column + 1, moves);
+        evaluateAndNext(gameStateChess, row + 2, column + 1, moves);
+
+        return moves;
+
+
     }
 
     public String toString() {

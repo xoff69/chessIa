@@ -17,4 +17,8 @@ public class Case implements Copyable {
 
         return caset;
     }
+
+    public String toString() {
+        return String.valueOf((char) ('a' + row)) + String.valueOf(column+1);
+    }
 }

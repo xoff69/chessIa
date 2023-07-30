@@ -14,7 +14,53 @@ public class Rook extends Piece {
     }
 
     public List<PieceMove> generatePossibleMoves(GameStateChess gameStateChess) {
-        return new ArrayList<>();
+
+        List<PieceMove> moves = new ArrayList<>();
+        {
+            int r = row;
+            int c = column - 1;
+            while (c > -1) {
+                if (!evaluateAndNext(gameStateChess, r, c, moves)) {
+                    break;
+                }
+
+                c--;
+            }
+        }
+        {
+            int r = row;
+            int c = column + 1;
+            while (c < 8) {
+                if (!evaluateAndNext(gameStateChess, r, c, moves)) {
+                    break;
+                }
+
+                c++;
+            }
+        }
+        {
+            int r = row - 1;
+            int c = column;
+            while (r > -1) {
+                if (!evaluateAndNext(gameStateChess, r, c, moves)) {
+                    break;
+                }
+
+                r--;
+            }
+        }
+        {
+            int r = row + 1;
+            int c = column;
+            while (r < 8) {
+                if (!evaluateAndNext(gameStateChess, r, c, moves)) {
+                    break;
+                }
+
+                r++;
+            }
+        }
+        return moves;
     }
 
     public String toString() {
