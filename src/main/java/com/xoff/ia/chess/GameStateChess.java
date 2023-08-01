@@ -35,12 +35,13 @@ public class GameStateChess extends GameState {
     private List<String> positions;
     private int nbMoveWithoutTakeOrPawnMove;
 
-    //TODO lister les movers + copy + to string
+    private List<String> moves;
 
     public GameStateChess() {
         lastMove = null;
         currentPlayer = Color.WHITE;
         positions = new ArrayList<>();
+        moves = new ArrayList<>();
         nbMoveWithoutTakeOrPawnMove = 0;
         whitePieces = new ArrayList<>();
         blackPieces = new ArrayList<>();
@@ -171,7 +172,7 @@ public class GameStateChess extends GameState {
         nbMoveWithoutTakeOrPawnMove = 0;
         whitePieces.clear();
         blackPieces.clear();
-
+        moves.clear();
         for (int row = 0; row < 8; row++) {
 
             for (int col = 0; col < 8; col++) {
@@ -188,6 +189,9 @@ public class GameStateChess extends GameState {
         gameStateChess.nbMoveWithoutTakeOrPawnMove = nbMoveWithoutTakeOrPawnMove;
         for (String s : positions) {
             gameStateChess.positions.add(s);
+        }
+        for (String s : moves) {
+            gameStateChess.moves.add(s);
         }
         if (lastMove != null) gameStateChess.setLastMove((PieceMove) lastMove.copy());
         for (int row = 0; row < 8; row++) {
@@ -255,7 +259,6 @@ public class GameStateChess extends GameState {
         Piece pieceOfList = gameStateChess.findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
 
 
-
         pieceOfList.setHasMoved(true);
 
         // if EP or promotion getPieceType==PAWN, useless to test
@@ -290,6 +293,7 @@ public class GameStateChess extends GameState {
 
         gameStateChess.getPositions().add(toString());
         gameStateChess.setLastMove(currentMove);
+        gameStateChess.moves.add(currentMove.toString());
         gameStateChess.setCurrentPlayer(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE);
 
 
@@ -310,8 +314,8 @@ public class GameStateChess extends GameState {
     }
 
     public boolean isTerminal() {
-        List<Move> moves = getPossibleMoves();
-        return moves.size() == 0;
+        List<Move> possibleMoves = getPossibleMoves();
+        return possibleMoves.size() == 0;
     }
 
     public float score() {

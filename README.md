@@ -10,10 +10,12 @@ IA algorithm implementations in Java
 
 ## Games:
 
-### Chess: 
+### Chess:
+
 chess moves generation is not all done mainly for king and pawn,
 
 eval function (score) is basic
 
 ### TicTacToe
+
 todo all game play

@@ -25,7 +25,7 @@ public class Pawn extends Piece {
         // step +1
         // TODO :LES PROMOTIONS
         {
-            boolean isMovePossible = getColor() == Color.WHITE ? getRow() < 7 : getRow() > 0;
+            boolean isMovePossible = getColor() == Color.WHITE ? getRow() < 7 : getRow() > 0 && isInBounds(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1);
             if (isMovePossible) {
                 PieceMove pieceMove = new PieceMove(this);
                 Case source = new Case(getRow(), getColumn());
@@ -36,16 +36,50 @@ public class Pawn extends Piece {
                     Case destination = new Case(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1, getColumn());
 
                     pieceMove.setDestination(destination);
-                    pieceMove.setMoveType(MoveType.NA);
 
+                    pieceMove.setMoveType(MoveType.NA);
                     moves.add(pieceMove);
+                }
+            }
+            // take 1
+            if (isInBounds(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1) && isInBounds(getColumn() + 1)) {
+
+                Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() + 1];
+                if (piece.getColor() != getColor()) {
+                    PieceMove pieceMove = new PieceMove(this);
+                    Case source = new Case(getRow(), getColumn());
+                    pieceMove.setSource(source);
+                    Case destination = new Case(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1, getColumn() + 1);
+
+                    pieceMove.setDestination(destination);
+
+                    pieceMove.setMoveType(MoveType.TAKE);
+                    moves.add(pieceMove);
+
+                }
+            }
+            // take 2
+            if (isInBounds(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1) && isInBounds(getColumn() - 1)) {
+
+                Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() - 1];
+                if (piece.getColor() != getColor()) {
+                    PieceMove pieceMove = new PieceMove(this);
+                    Case source = new Case(getRow(), getColumn());
+                    pieceMove.setSource(source);
+                    Case destination = new Case(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1, getColumn() - 1);
+
+                    pieceMove.setDestination(destination);
+
+                    pieceMove.setMoveType(MoveType.TAKE);
+                    moves.add(pieceMove);
+
                 }
             }
         }
 
         // step +2
         {
-            boolean isMovePossible = getColor() == Color.WHITE ? getRow() == 1 : getRow() == 6;
+            boolean isMovePossible = getColor() == Color.WHITE ? getRow() == 1 : getRow() == 6 && isInBounds(getColor() == Color.WHITE ? getRow() + 2 : getRow() - 2);
             if (isMovePossible) {
 
 

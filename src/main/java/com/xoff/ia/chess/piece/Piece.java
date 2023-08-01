@@ -29,7 +29,7 @@ public abstract class Piece implements Copyable {
         color = Color.WHITE;
     }
 
-    private boolean isInBounds(int value) {
+    protected boolean isInBounds(int value) {
         return (value >= 0 && value < 8);
     }
 
