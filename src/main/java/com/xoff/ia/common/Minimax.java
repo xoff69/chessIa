@@ -8,6 +8,7 @@ public class Minimax implements AlgorithmBestMove {
     public static Eval minimax(GameState gameState, int depth, boolean maximizingPlayer) {
         Move bestMove = null;
         if ((depth == 0) || (gameState.isTerminal())) {
+
             return new Eval(gameState.score(), null);
         }
 
