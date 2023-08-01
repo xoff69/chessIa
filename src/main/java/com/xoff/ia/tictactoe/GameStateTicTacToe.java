@@ -64,7 +64,7 @@ public class GameStateTicTacToe extends GameState {
         for (int i = 0; i < dimension; i++) {
 
             for (int j = 0; j < dimension; j++) {
-                if (board[i][j] != EMPTY) {
+                if (board[i][j] == EMPTY) {
                     return false;
                 }
             }
@@ -162,6 +162,7 @@ public class GameStateTicTacToe extends GameState {
                 }
             }
         }
+
         return moves;
     }
 

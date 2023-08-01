@@ -18,4 +18,4 @@ eval function (score) is basic
 
 ### TicTacToe
 
-todo all game play
+brut test of the algorithms

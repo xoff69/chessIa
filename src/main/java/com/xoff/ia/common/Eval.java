@@ -1,5 +1,12 @@
 package com.xoff.ia.common;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@ToString
+@Getter
+@Setter
 public class Eval {
     private float score;
     private Move bestMove;
@@ -9,21 +16,7 @@ public class Eval {
         this.bestMove = bestMove;
     }
 
-    public float getScore() {
-        return score;
-    }
 
-    public void setScore(float score) {
-        this.score = score;
-    }
-
-    public Move getBestMove() {
-        return bestMove;
-    }
-
-    public void setBestMove(Move bestMove) {
-        this.bestMove = bestMove;
-    }
 
 
 }
