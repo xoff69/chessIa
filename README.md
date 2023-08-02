@@ -12,7 +12,7 @@ IA algorithm implementations in Java
 
 ### Chess:
 
-chess moves generation is not all done mainly for king and pawn,
+chess moves generation is not all done mainly for pawn: prise EP,
 
 eval function (score) is basic
 

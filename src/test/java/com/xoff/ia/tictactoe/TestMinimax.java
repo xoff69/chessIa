@@ -18,6 +18,7 @@ public class TestMinimax {
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("elasped time " + timeElapsed / 1000.); // 34s
+        System.out.println("move time " + e.getBestMove());
         assertEquals(0.0, e.getScore(), 0.0f);
     }
 
@@ -25,18 +26,12 @@ public class TestMinimax {
     @DisplayName("game test Minimx tictactoie")
     public void testAGame() {
         GameStateTicTacToe gameStateTicTacToe = new GameStateTicTacToe(3);
-        while (!gameStateTicTacToe.isTerminal()) {
-            System.out.println(gameStateTicTacToe);
-            Eval e = Minimax.minimax(gameStateTicTacToe, 3, gameStateTicTacToe.isCurrentPlayer());
-            if (e.getBestMove() == null) {
-                System.out.println("fini");
-                break;
-            }
+        for (int i = 0; i < 5; i++) {
+            System.out.println(i + "  " + gameStateTicTacToe);
+            Eval e = Minimax.minimax(gameStateTicTacToe, 5, gameStateTicTacToe.isCurrentPlayer());
 
             gameStateTicTacToe = (GameStateTicTacToe) gameStateTicTacToe.play(e.getBestMove());
-
-
         }
-        System.out.println(gameStateTicTacToe);
+        System.out.println(" final :" + gameStateTicTacToe);
     }
 }

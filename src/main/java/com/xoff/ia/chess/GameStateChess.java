@@ -198,7 +198,7 @@ public class GameStateChess extends GameState {
 
             for (int col = 0; col < 8; col++) {
 
-                gameStateChess.getPieces()[row][col] = getPieces()[row][col].copy();
+                gameStateChess.getPieces()[row][col] = (getPieces()[row][col]).copy();
                 if (gameStateChess.getPieces()[row][col].getColor() == Color.WHITE) {
                     gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[row][col]);
                     if (gameStateChess.getPieces()[row][col].getPieceType() == PieceType.KING) {
@@ -253,7 +253,7 @@ public class GameStateChess extends GameState {
     public GameStateChess play(Move move) {
 
         GameStateChess gameStateChess = this.copy();
-
+        List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
         PieceMove currentMove = (PieceMove) move;
         Piece source = gameStateChess.getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
         Piece pieceOfList = gameStateChess.findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
@@ -284,11 +284,77 @@ public class GameStateChess extends GameState {
             gameStateChess.getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
 
         } else if (currentMove.getMoveType() == MoveType.SHORT_CASTLE || currentMove.getMoveType() == MoveType.LONG_CASTLE) {
-            // TODO
-        } else if (currentMove.getMoveType() == MoveType.PROMOTION_BISHOP || currentMove.getMoveType() == MoveType.PROMOTION_KNIGHT || currentMove.getMoveType() == MoveType.PROMOTION_QUEEN || currentMove.getMoveType() == MoveType.PROMOTION_ROOK) {
-            // TODO
-        }
 
+            if (currentMove.getMoveType() == MoveType.SHORT_CASTLE) {
+                pieceOfList.setRow(currentMove.getSource().getRow());
+                pieceOfList.setColumn(6);
+
+                System.out.println("Catle King " + whiteKing + "-" + blackKing);
+
+                Rook rook = (Rook) findPieceIntoPieces(currentPlayer, currentMove.getSource().getRow(), 7);
+                rook.setColumn(5);
+
+            } else {
+                pieceOfList.setRow(currentMove.getSource().getRow());
+                pieceOfList.setColumn(3);
+
+                System.out.println("grand Catle King " + whiteKing + "-" + blackKing);
+
+                Rook rook = (Rook) findPieceIntoPieces(currentPlayer, currentMove.getSource().getRow(), 0);
+                rook.setColumn(4);
+            }
+            King k = (King) pieceOfList;
+            k.setHasCastled(true);
+
+        } else if (currentMove.getMoveType() == MoveType.PROMOTION_BISHOP || currentMove.getMoveType() == MoveType.PROMOTION_KNIGHT || currentMove.getMoveType() == MoveType.PROMOTION_QUEEN || currentMove.getMoveType() == MoveType.PROMOTION_ROOK) {
+
+            gameStateChess.removePieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
+
+            switch (currentMove.getMoveType()) {
+                case PROMOTION_BISHOP:
+                    Bishop bishop = new Bishop(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(bishop);
+                    break;
+                case PROMOTION_KNIGHT:
+                    Knight knight = new Knight(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(knight);
+                    break;
+                case PROMOTION_QUEEN:
+                    Queen queen = new Queen(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(queen);
+                    break;
+                case PROMOTION_ROOK:
+                    Rook rook = new Rook(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(rook);
+                    break;
+                default:
+                    break;
+            }
+
+        } else if (currentMove.getMoveType() == MoveType.PROMOTION_BISHOP_TAKE || currentMove.getMoveType() == MoveType.PROMOTION_KNIGHT_TAKE || currentMove.getMoveType() == MoveType.PROMOTION_QUEEN_TAKE || currentMove.getMoveType() == MoveType.PROMOTION_ROOK_TAKE) {
+            gameStateChess.removePieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
+            gameStateChess.removePieceIntoPieces(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE, currentMove.getDestination().getRow(), currentMove.getDestination().getColumn());
+            switch (currentMove.getMoveType()) {
+                case PROMOTION_BISHOP_TAKE:
+                    Bishop bishop = new Bishop(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(bishop);
+                    break;
+                case PROMOTION_KNIGHT_TAKE:
+                    Knight knight = new Knight(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(knight);
+                    break;
+                case PROMOTION_QUEEN_TAKE:
+                    Queen queen = new Queen(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(queen);
+                    break;
+                case PROMOTION_ROOK_TAKE:
+                    Rook rook = new Rook(currentMove.getDestination().getRow(), currentMove.getDestination().getColumn(), currentPlayer);
+                    pieces.add(rook);
+                    break;
+                default:
+                    break;
+            }
+        }
         gameStateChess.getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()] = new Empty(currentMove.getSource().getRow(), currentMove.getSource().getColumn());
 
         gameStateChess.getPositions().add(toString());
@@ -323,10 +389,18 @@ public class GameStateChess extends GameState {
         List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
         for (Piece piece : pieces) {
             score = score + piece.estimateValue();
+            if (piece.getPieceType() == PieceType.KING) {
+                King k = (King) piece;
+                score = score + (k.isHasCastled() ? 0.5f : 0.f);
+            }
         }
         List<Piece> piecesOpp = (currentPlayer != Color.WHITE) ? whitePieces : blackPieces;
-        for (Piece piece : pieces) {
+        for (Piece piece : piecesOpp) {
             score = score - piece.estimateValue();
+            if (piece.getPieceType() == PieceType.KING) {
+                King k = (King) piece;
+                score = score + (k.isHasCastled() ? -0.2f : 0.f);
+            }
         }
         return score;
     }

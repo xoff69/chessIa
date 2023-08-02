@@ -7,9 +7,18 @@ public class Minimax implements AlgorithmBestMove {
 
     public static Eval minimax(GameState gameState, int depth, boolean maximizingPlayer) {
         Move bestMove = null;
-        if ((depth == 0) || (gameState.isTerminal())) {
-
+        if (gameState.isTerminal()) {
+            //      System.out.println("cas a");
             return new Eval(gameState.score(), null);
+        } else if (depth == 0) {
+            // System.out.println("cas b");
+            List<Move> moves = gameState.getPossibleMoves();
+
+            if (moves.size() > 0) {
+                //    System.out.println("cas b2 "+moves.get(0));
+                return new Eval(gameState.score(), moves.get(0));
+            }
+            // no else
         }
 
         if (maximizingPlayer) {

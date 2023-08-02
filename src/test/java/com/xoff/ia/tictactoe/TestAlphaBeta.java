@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestAlphaBeta {
     @Test
     @DisplayName("basic test alphabeta tictactoie")
-    public void testMinimax() {
+    public void testAB() {
         GameStateTicTacToe gameStateTicTacToe = new GameStateTicTacToe(3);
         long start = System.currentTimeMillis();
-        Eval e = AlphaBeta.alphabeta(gameStateTicTacToe, 4, true, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
+        Eval e = AlphaBeta.alphabeta(gameStateTicTacToe, 4, true, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("elasped time " + timeElapsed / 1000.); // 34s

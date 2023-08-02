@@ -33,12 +33,45 @@ public class Pawn extends Piece {
 
                 Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn()];
                 if (piece.getPieceType() == PieceType.EMPTY) {
+
+
                     Case destination = new Case(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1, getColumn());
 
-                    pieceMove.setDestination(destination);
+                    if (destination.getRow() == 7 || destination.getRow() == 0) {
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_BISHOP);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_ROOK);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_KNIGHT);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_QUEEN);
+                            moves.add(pieceMovePromotion);
+                        }
+                    } else {
+                        pieceMove.setMoveType(MoveType.NA);
+                        pieceMove.setDestination(destination);
+                        moves.add(pieceMove);
+                    }
 
-                    pieceMove.setMoveType(MoveType.NA);
-                    moves.add(pieceMove);
                 }
             }
             // take 1
@@ -51,10 +84,41 @@ public class Pawn extends Piece {
                     pieceMove.setSource(source);
                     Case destination = new Case(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1, getColumn() + 1);
 
-                    pieceMove.setDestination(destination);
+                    if (destination.getRow() == 7 || destination.getRow() == 0) {
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_BISHOP_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_ROOK_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_KNIGHT_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_QUEEN_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                    } else {
+                        pieceMove.setDestination(destination);
 
-                    pieceMove.setMoveType(MoveType.TAKE);
-                    moves.add(pieceMove);
+                        pieceMove.setMoveType(MoveType.TAKE);
+                        moves.add(pieceMove);
+                    }
 
                 }
             }
@@ -68,10 +132,41 @@ public class Pawn extends Piece {
                     pieceMove.setSource(source);
                     Case destination = new Case(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1, getColumn() - 1);
 
-                    pieceMove.setDestination(destination);
+                    if (destination.getRow() == 7 || destination.getRow() == 0) {
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_BISHOP_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_ROOK_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_KNIGHT_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                        {
+                            PieceMove pieceMovePromotion = new PieceMove(this);
+                            pieceMovePromotion.setSource(source);
+                            pieceMovePromotion.setSource(destination);
+                            pieceMove.setMoveType(MoveType.PROMOTION_QUEEN_TAKE);
+                            moves.add(pieceMovePromotion);
+                        }
+                    } else {
+                        pieceMove.setDestination(destination);
 
-                    pieceMove.setMoveType(MoveType.TAKE);
-                    moves.add(pieceMove);
+                        pieceMove.setMoveType(MoveType.TAKE);
+                        moves.add(pieceMove);
+                    }
 
                 }
             }
@@ -99,8 +194,8 @@ public class Pawn extends Piece {
             }
         }
         // TODO
-        // les prises dont prises EP
-        // les prises avec promotion
+        // les prises EP
+
         return moves;
 
     }

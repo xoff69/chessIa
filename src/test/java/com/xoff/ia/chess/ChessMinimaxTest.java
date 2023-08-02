@@ -20,4 +20,17 @@ public class ChessMinimaxTest {
         assertEquals(0.0, e.getScore(), 0.0f);
     }
 
+    @Test
+    @DisplayName("basic test testGameMinimax")
+    public void testGameMinimax() {
+        GameStateChess gameStateChess = new GameStateChess();
+        for (int i = 0; i < 10; i++) {
+            Eval e = Minimax.minimax(gameStateChess, 2, true);
+
+            gameStateChess = gameStateChess.play(e.getBestMove());
+
+        }
+        System.out.println(gameStateChess.toString());
+    }
+
 }

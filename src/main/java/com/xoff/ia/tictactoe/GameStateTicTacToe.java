@@ -1,6 +1,5 @@
 package com.xoff.ia.tictactoe;
 
-import com.xoff.ia.chess.Color;
 import com.xoff.ia.common.GameState;
 import com.xoff.ia.common.Move;
 import lombok.Getter;
@@ -62,7 +61,7 @@ public class GameStateTicTacToe extends GameState {
 
     @Override
     public boolean isTerminal() {
-        if (Math.abs(score())>1000.){
+        if (Math.abs(score()) > 1000.) {
             return true;
         }
         for (int i = 0; i < dimension; i++) {
@@ -178,7 +177,7 @@ public class GameStateTicTacToe extends GameState {
         GameStateTicTacToe gameStateTicTacToe = this.copy();
         gameStateTicTacToe.getBoard()[ticTacMove.getI()][ticTacMove.getJ()] = (currentPlayer) ? PLAYER_A : PLAYER_B;
 
-        gameStateTicTacToe.setCurrentPlayer(currentPlayer  ? false: true);
+        gameStateTicTacToe.setCurrentPlayer(currentPlayer ? false : true);
         return gameStateTicTacToe;
 
     }
