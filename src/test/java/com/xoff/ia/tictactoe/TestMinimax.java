@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestMinimax {
 
@@ -26,12 +27,18 @@ public class TestMinimax {
     @DisplayName("game test Minimx tictactoie")
     public void testAGame() {
         GameStateTicTacToe gameStateTicTacToe = new GameStateTicTacToe(3);
-        for (int i = 0; i < 5; i++) {
+        int i = 0;
+        while (!gameStateTicTacToe.isTerminal()) {
             System.out.println(i + "  " + gameStateTicTacToe);
             Eval e = Minimax.minimax(gameStateTicTacToe, 5, gameStateTicTacToe.isCurrentPlayer());
-
+            if (e.getBestMove() == null) {
+                System.out.println("error bm null " + e.getScore());
+                break;
+            }
             gameStateTicTacToe = (GameStateTicTacToe) gameStateTicTacToe.play(e.getBestMove());
+            i++;
         }
         System.out.println(" final :" + gameStateTicTacToe);
+        assertTrue(gameStateTicTacToe.isTerminal());
     }
 }

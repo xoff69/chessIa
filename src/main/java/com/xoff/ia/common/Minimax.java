@@ -8,15 +8,17 @@ public class Minimax implements AlgorithmBestMove {
     public static Eval minimax(GameState gameState, int depth, boolean maximizingPlayer) {
         Move bestMove = null;
         if (gameState.isTerminal()) {
-            //      System.out.println("cas a");
+            // System.out.println("cas a " +gameState);
             return new Eval(gameState.score(), null);
         } else if (depth == 0) {
             // System.out.println("cas b");
             List<Move> moves = gameState.getPossibleMoves();
 
             if (moves.size() > 0) {
-                //    System.out.println("cas b2 "+moves.get(0));
+                //   System.out.println(gameState.score() +"cas b2 "+moves.get(0));
                 return new Eval(gameState.score(), moves.get(0));
+            } else {
+                ///   System.out.println("cas b3 "+gameState.isTerminal());
             }
             // no else
         }
@@ -30,9 +32,12 @@ public class Minimax implements AlgorithmBestMove {
                 GameState child = gameState.play(move);
 
                 Eval eval = minimax(child, depth - 1, false);
-                if (eval.getScore() > value) {
+                if (Float.compare(eval.getScore(), value) >= 0) {
                     value = eval.getScore();
                     bestMove = eval.getBestMove();
+                    if (bestMove == null) {
+                        bestMove = move;
+                    }
                 }
 
 
@@ -46,13 +51,17 @@ public class Minimax implements AlgorithmBestMove {
 
                 GameState child = gameState.play(move);
                 Eval eval = minimax(child, depth - 1, true);
-                if (eval.getScore() < value) {
+                if (Float.compare(eval.getScore(), value) <= 0) {
                     value = eval.getScore();
                     bestMove = eval.getBestMove();
+                    if (bestMove == null) {
+                        bestMove = move;
+                    }
                 }
 
 
             }
+            //   System.out.println(depth+" dernier return "+gameState+ " "+bestMove);
             return new Eval(value, bestMove);
         }
     }

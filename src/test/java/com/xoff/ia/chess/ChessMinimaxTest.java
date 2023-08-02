@@ -24,7 +24,7 @@ public class ChessMinimaxTest {
     @DisplayName("basic test testGameMinimax")
     public void testGameMinimax() {
         GameStateChess gameStateChess = new GameStateChess();
-        for (int i = 0; i < 10; i++) {
+        while (!gameStateChess.isTerminal()) {
             Eval e = Minimax.minimax(gameStateChess, 2, true);
 
             gameStateChess = gameStateChess.play(e.getBestMove());
