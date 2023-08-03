@@ -78,7 +78,7 @@ public class Pawn extends Piece {
             if (isInBounds(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1) && isInBounds(getColumn() + 1)) {
 
                 Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() + 1];
-                if (piece.getColor() != getColor()) {
+                if (piece.getColor() != getColor()&&piece.getPieceType()!=PieceType.EMPTY) {
                     PieceMove pieceMove = new PieceMove(this);
                     Case source = new Case(getRow(), getColumn());
                     pieceMove.setSource(source);
@@ -126,7 +126,7 @@ public class Pawn extends Piece {
             if (isInBounds(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1) && isInBounds(getColumn() - 1)) {
 
                 Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() - 1];
-                if (piece.getColor() != getColor()) {
+                if (piece.getColor() != getColor()&&piece.getPieceType()!=PieceType.EMPTY) {
                     PieceMove pieceMove = new PieceMove(this);
                     Case source = new Case(getRow(), getColumn());
                     pieceMove.setSource(source);

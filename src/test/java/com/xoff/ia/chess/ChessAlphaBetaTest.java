@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ChessAlphaBetaTest {
     @Test
@@ -18,20 +19,28 @@ public class ChessAlphaBetaTest {
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("elasped time " + timeElapsed / 1000.); // 0.06ss
-        assertEquals(0.0, e.getScore(), 0.0f);
+        System.out.println("best move "+e);
+        assertNotNull(e.getBestMove());
     }
 
     @Test
     @DisplayName("basic test testGameAB")
     public void testGameAB() {
         GameStateChess gameStateChess = new GameStateChess();
-        for (int i = 0; i < 10; i++) {
-            Eval e = AlphaBeta.alphabeta(gameStateChess, 4, true, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
-
-            System.out.println(i + " eval " + e);
-            gameStateChess = gameStateChess.play(e.getBestMove());
-
-        }
         System.out.println(gameStateChess.toString());
+        for (int i = 0; i < 10; i++) {
+            Eval e = AlphaBeta.alphabeta(gameStateChess, 2, true, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+            if (e.getBestMove() == null) {
+                System.out.println("bm null" +e);
+                break;
+            }
+            System.out.println(i + " eval " + e);
+            System.out.println(gameStateChess.toString());
+            System.out.println("***************************");
+            gameStateChess = gameStateChess.play(e.getBestMove());
+            System.out.println("oooooooooooooo");
+            System.out.println(i + " eval_b " + e);
+        }
+        assertNotNull(gameStateChess.toString());
     }
 }

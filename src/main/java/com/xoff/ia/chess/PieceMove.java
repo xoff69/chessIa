@@ -44,6 +44,11 @@ public class PieceMove implements Move {
         if (piece.getPieceType() != PieceType.PAWN) {
             sb.append(piece.toString());
         }
+        else{
+            if (moveType == MoveType.TAKE) {
+                sb.append((char) ('a' + source.getColumn()));
+            }
+        }
         // sb.append(source); // TODO si c est une prise et que c est un pion mettre la column
         if (moveType == MoveType.TAKE) {
             sb.append("x");

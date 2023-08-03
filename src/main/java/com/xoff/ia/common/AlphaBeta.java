@@ -5,48 +5,41 @@ import java.util.List;
 public class AlphaBeta implements AlgorithmBestMove {
 
     public static Eval alphabeta(GameState gameState, int depth, boolean maximizingPlayer, float alpha, float beta) {
-        Move bestMove = null;
-        if ((depth == 0) || (gameState.isTerminal())) {
+        if (depth==0||gameState.isTerminal()) {
+
             return new Eval(gameState.score(), null);
         }
-
-        if (maximizingPlayer) {
-            float value = Float.NEGATIVE_INFINITY;
-
-            List<Move> moves = gameState.getPossibleMoves();
+        List<Move> moves = gameState.getPossibleMoves();
+        Move bestMove = null;
+        float bestMoveValue=maximizingPlayer?Float.NEGATIVE_INFINITY:Float.POSITIVE_INFINITY;
 
 
-            for (Move move : moves) {
-
-                GameState child = gameState.play(move);
-
-
-                Eval eval = alphabeta(child, depth - 1, false, alpha, beta);
-                if (eval.getScore() > value) {
-                    value = eval.getScore();
-                    bestMove = eval.getBestMove();
+        for (Move move : moves) {
+            GameState child = gameState.play(move);
+            Eval eval= alphabeta(child, depth - 1, !maximizingPlayer,alpha,beta);
+            float value=eval.getScore();
+            if (maximizingPlayer) {
+                // Look for moves that maximize position
+                if (value > bestMoveValue) {
+                    bestMoveValue = value;
+                    bestMove = move;
                 }
-                if (value >= beta) break;
-                alpha = Math.max(alpha, value);
-            }
-            return new Eval(value, bestMove);
-        } else {
-            float value = Float.POSITIVE_INFINITY;
-
-            List<Move> moves = gameState.getPossibleMoves();
-            for (Move move : moves) {
-
-                GameState child = gameState.play(move);
-                Eval eval = alphabeta(child, depth - 1, true, alpha, beta);
-                if (eval.getScore() < value) {
-                    value = eval.getScore();
-                    bestMove = eval.getBestMove();
+                alpha=Float.max(alpha,value);
+            } else {
+                // Look for moves that minimize position
+                if (value < bestMoveValue) {
+                    bestMoveValue = value;
+                    bestMove = move;
                 }
-                if (value <= alpha) break;
-                beta = Math.min(beta, value);
-
+                beta=Float.min(beta,value);
             }
-            return new Eval(value, bestMove);
+            if (beta<=alpha){
+                break;
+            }
         }
+//System.out.println(" best "+bestMove+" "+bestMoveValue+ " "+moves.size());
+        return new Eval(bestMoveValue, bestMove!=null?bestMove:moves.get(0));
+
+
     }
 }

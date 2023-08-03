@@ -6,6 +6,8 @@ import com.xoff.ia.common.Move;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -29,7 +31,40 @@ public class GameStateChessTest {
         assertEquals(gameStateChessOther.toString(), gameStateChess.toString());
 
     }
+    @Test
+    @DisplayName("GameStateChessTest start state")
+    public void testGameStateChessNextStateStart() {
+        GameStateChess gameStateChess = new GameStateChess();
 
+
+        System.out.println("moves:");
+        List<Move> moves=gameStateChess.getPossibleMoves();
+        for (Move move : moves) {
+            System.out.println(move);
+        }
+        assertEquals(20,moves.size());
+    } @Test
+    @DisplayName("GameStateChessTest start state second move")
+    public void testGameStateChessNextState2() {
+        GameStateChess gameStateChess = new GameStateChess();
+        PieceMove move1 = new PieceMove(new Pawn(1, 4, Color.WHITE));
+        // e4
+        {
+            Case source = new Case(1, 4);
+            Case destination = new Case(3, 4);
+
+            move1.setSource(source);
+            move1.setDestination(destination);
+            move1.setMoveType(MoveType.NA);
+        }
+        gameStateChess=gameStateChess.play(move1);
+        System.out.println("moves:");
+        List<Move> moves=gameStateChess.getPossibleMoves();
+        for (Move move : moves) {
+            System.out.println(move);
+        }
+        assertEquals(20,moves.size());
+    }
     @Test
     @DisplayName("GameStateChessTest nest state")
     public void testGameStateChessNextState() {

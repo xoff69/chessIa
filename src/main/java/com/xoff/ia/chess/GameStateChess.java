@@ -161,7 +161,10 @@ public class GameStateChess extends GameState {
                 sb.append(pieces[row][col] + " ");
             }
         }
-
+sb.append("\nmoves:");
+        for (String m:moves){
+            sb.append(m).append(" ");
+        }
         return sb.toString();
     }
 
@@ -184,11 +187,16 @@ public class GameStateChess extends GameState {
     public GameStateChess copy() {
 
         GameStateChess gameStateChess = new GameStateChess();
+        gameStateChess.getWhitePieces().clear();
+        gameStateChess.getBlackPieces().clear();
+        gameStateChess.getPositions().clear();
+        gameStateChess.getMoves().clear();
+
         gameStateChess.setCurrentPlayer(currentPlayer);
 
         gameStateChess.nbMoveWithoutTakeOrPawnMove = nbMoveWithoutTakeOrPawnMove;
         for (String s : positions) {
-            gameStateChess.positions.add(s);
+            gameStateChess.getPositions().add(s);
         }
         for (String s : moves) {
             gameStateChess.moves.add(s);
@@ -223,6 +231,7 @@ public class GameStateChess extends GameState {
         List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
         for (Piece piece : pieces) {
             moves.addAll(piece.generatePossibleMoves(this));
+        //    System.out.println("piece = "+piece+" "+piece.generatePossibleMoves(this).size());
         }
         // TODO chaque move, le jouer et voir si ca met nous meme en echec
         return moves;
@@ -257,7 +266,13 @@ public class GameStateChess extends GameState {
         PieceMove currentMove = (PieceMove) move;
         Piece source = gameStateChess.getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
         Piece pieceOfList = gameStateChess.findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
-
+if (pieceOfList==null){
+    // DEBUG FIXME
+    System.out.println(" ---------------------------------- ");
+    System.out.println(toString());
+    System.out.println(currentMove);
+    System.out.println(" ---------------------------------- ");
+}
 
         pieceOfList.setHasMoved(true);
 
@@ -289,7 +304,7 @@ public class GameStateChess extends GameState {
                 pieceOfList.setRow(currentMove.getSource().getRow());
                 pieceOfList.setColumn(6);
 
-                System.out.println("Catle King " + whiteKing + "-" + blackKing);
+            //    System.out.println("Catle King " + whiteKing + "-" + blackKing);
 
                 Rook rook = (Rook) findPieceIntoPieces(currentPlayer, currentMove.getSource().getRow(), 7);
                 rook.setColumn(5);
@@ -298,7 +313,7 @@ public class GameStateChess extends GameState {
                 pieceOfList.setRow(currentMove.getSource().getRow());
                 pieceOfList.setColumn(3);
 
-                System.out.println("grand Catle King " + whiteKing + "-" + blackKing);
+         //       System.out.println("grand Catle King " + whiteKing + "-" + blackKing);
 
                 Rook rook = (Rook) findPieceIntoPieces(currentPlayer, currentMove.getSource().getRow(), 0);
                 rook.setColumn(4);

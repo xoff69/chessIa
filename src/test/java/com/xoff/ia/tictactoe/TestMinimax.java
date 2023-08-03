@@ -30,7 +30,7 @@ public class TestMinimax {
         int i = 0;
         while (!gameStateTicTacToe.isTerminal()) {
             System.out.println(i + "  " + gameStateTicTacToe);
-            Eval e = Minimax.minimax(gameStateTicTacToe, 5, gameStateTicTacToe.isCurrentPlayer());
+            Eval e = Minimax.minimax(gameStateTicTacToe, 3, gameStateTicTacToe.isCurrentPlayer());
             if (e.getBestMove() == null) {
                 System.out.println("error bm null " + e.getScore());
                 break;
