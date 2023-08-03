@@ -1,5 +1,6 @@
 package com.xoff.ia.chess;
 
+import com.xoff.ia.chess.evaluation.Evaluation;
 import com.xoff.ia.chess.piece.Bishop;
 import com.xoff.ia.chess.piece.Empty;
 import com.xoff.ia.chess.piece.King;
@@ -266,13 +267,7 @@ sb.append("\nmoves:");
         PieceMove currentMove = (PieceMove) move;
         Piece source = gameStateChess.getPieces()[currentMove.getSource().getRow()][currentMove.getSource().getColumn()];
         Piece pieceOfList = gameStateChess.findPieceIntoPieces(currentPlayer, source.getRow(), source.getColumn());
-if (pieceOfList==null){
-    // DEBUG FIXME
-    System.out.println(" ---------------------------------- ");
-    System.out.println(toString());
-    System.out.println(currentMove);
-    System.out.println(" ---------------------------------- ");
-}
+
 
         pieceOfList.setHasMoved(true);
 
@@ -295,6 +290,15 @@ if (pieceOfList==null){
             pieceOfList.setColumn(currentMove.getDestination().getColumn());
             // fill destination
             gameStateChess.removePieceIntoPieces(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE, currentMove.getDestination().getRow(), currentMove.getDestination().getColumn());
+
+            gameStateChess.getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
+
+        }else if (currentMove.getMoveType() == MoveType.EP) {
+
+            pieceOfList.setRow(currentMove.getDestination().getRow());
+            pieceOfList.setColumn(currentMove.getDestination().getColumn());
+            // fill destination
+            gameStateChess.removePieceIntoPieces(currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE, currentMove.getSource().getRow(), currentMove.getDestination().getColumn());
 
             gameStateChess.getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
 
@@ -400,24 +404,7 @@ if (pieceOfList==null){
     }
 
     public float score() {
-        float score = 0f;
-        List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
-        for (Piece piece : pieces) {
-            score = score + piece.estimateValue();
-            if (piece.getPieceType() == PieceType.KING) {
-                King k = (King) piece;
-                score = score + (k.isHasCastled() ? 0.5f : 0.f);
-            }
-        }
-        List<Piece> piecesOpp = (currentPlayer != Color.WHITE) ? whitePieces : blackPieces;
-        for (Piece piece : piecesOpp) {
-            score = score - piece.estimateValue();
-            if (piece.getPieceType() == PieceType.KING) {
-                King k = (King) piece;
-                score = score + (k.isHasCastled() ? -0.2f : 0.f);
-            }
-        }
-        return score;
+        return Evaluation.evaluate(this);
     }
 
 }

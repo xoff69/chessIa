@@ -10,12 +10,15 @@ IA algorithm implementations in Java
 
 ## Games:
 
-### Chess:
+### Chess
 
-chess moves generation is not all done mainly for pawn: prise EP,
+##### todo 
 
-eval function (score) is basic
+
+- eval function (score) is basic + test
+
+- add test for generating move (mainly promotion)
 
 ### TicTacToe
 
-brut test of the algorithms
+- brut test of the algorithms
