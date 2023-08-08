@@ -51,6 +51,7 @@ public class GameStateChessBuilder {
         gameStateChess = gameStateChess.play(move4);
         return gameStateChess;
     }
+
     public static GameStateChess build4Moves() {
         GameStateChess gameStateChess = new GameStateChess();
         PieceMove move1 = new PieceMove(new Pawn(1, 4, Color.WHITE));

@@ -5,7 +5,6 @@ import com.xoff.ia.common.Eval;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ChessAlphaBetaTest {
@@ -19,7 +18,7 @@ public class ChessAlphaBetaTest {
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("elasped time " + timeElapsed / 1000.); // 0.06ss
-        System.out.println("best move "+e);
+        System.out.println("best move " + e);
         assertNotNull(e.getBestMove());
     }
 
@@ -28,10 +27,11 @@ public class ChessAlphaBetaTest {
     public void testGameAB() {
         GameStateChess gameStateChess = new GameStateChess();
         System.out.println(gameStateChess.toString());
-        for (int i = 0; i < 10; i++) {
-            Eval e = AlphaBeta.alphabeta(gameStateChess, 2, true, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+        // il joue Na3 et a6 ... avec un +0.2
+        for (int i = 0; i < 2; i++) {
+            Eval e = AlphaBeta.alphabeta(gameStateChess, 7, true, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
             if (e.getBestMove() == null) {
-                System.out.println("bm null" +e);
+                System.out.println("bm null" + e);
                 break;
             }
             System.out.println(i + " eval " + e);

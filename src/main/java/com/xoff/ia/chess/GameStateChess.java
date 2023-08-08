@@ -17,6 +17,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Getter
 @Setter
@@ -151,6 +152,116 @@ public class GameStateChess extends GameState {
         }
     }
 
+    public static GameStateChess string2GameStateChess(String source) {
+        GameStateChess gameStateChess = new GameStateChess();
+        gameStateChess.getBlackPieces().clear();
+        gameStateChess.getWhitePieces().clear();
+
+        String color = source.substring("state:".length(), source.indexOf("-"));
+        System.out.println("color " + color);
+        String suite = source.substring(source.indexOf("-") + 1);
+        System.out.println("suite " + suite);
+        int r = 7;
+        int c = 0;
+        int i = 0;
+
+        for (char car : suite.toCharArray()) {
+
+            switch (car) {
+                case '.':
+                    gameStateChess.getPieces()[r][c] = new Empty(r, c);
+                    c++;
+                    break;
+                case 'p':
+                    gameStateChess.getPieces()[r][c] = new Pawn(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'P':
+                    gameStateChess.getPieces()[r][c] = new Pawn(r, c, Color.WHITE);
+                    gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'r':
+                    gameStateChess.getPieces()[r][c] = new Rook(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'R':
+                    gameStateChess.getPieces()[r][c] = new Rook(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'n':
+                    gameStateChess.getPieces()[r][c] = new Knight(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'N':
+                    gameStateChess.getPieces()[r][c] = new Knight(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'B':
+                    gameStateChess.getPieces()[r][c] = new Queen(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'b':
+                    gameStateChess.getPieces()[r][c] = new Queen(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'q':
+                    gameStateChess.getPieces()[r][c] = new King(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.setBlackKing(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'Q':
+                    gameStateChess.getPieces()[r][c] = new King(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                case 'k':
+                    gameStateChess.getPieces()[r][c] = new Pawn(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.setBlackKing(gameStateChess.getPieces()[r][c]);
+                    c++;
+
+                    break;
+                case 'K':
+                    gameStateChess.getPieces()[r][c] = new Pawn(r, c, Color.BLACK);
+                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.setWhiteKing(gameStateChess.getPieces()[r][c]);
+                    c++;
+                    break;
+                default:
+            }
+            i++;
+            if (c == 8) {
+                c = 0;
+                r--;
+                if (r == -1) {
+                    break;
+                }
+            }
+
+        }
+
+        String moves = suite.substring(i);
+        moves = moves.substring(moves.lastIndexOf("#") + 1);
+        moves = moves.substring("moves".length() + 1);
+        StringTokenizer str = new StringTokenizer(moves, ",");
+        while (str.hasMoreElements()) {
+            String token = str.nextToken();
+            System.out.println("a " + token);
+            //gameStateChess.setLastMove(token);
+        }
+
+        return gameStateChess;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("state:");
@@ -162,9 +273,9 @@ public class GameStateChess extends GameState {
                 sb.append(pieces[row][col] + " ");
             }
         }
-sb.append("\nmoves:");
-        for (String m:moves){
-            sb.append(m).append(" ");
+        sb.append("\n##moves:");
+        for (String m : moves) {
+            sb.append(m).append(",");
         }
         return sb.toString();
     }
@@ -232,7 +343,7 @@ sb.append("\nmoves:");
         List<Piece> pieces = (currentPlayer == Color.WHITE) ? whitePieces : blackPieces;
         for (Piece piece : pieces) {
             moves.addAll(piece.generatePossibleMoves(this));
-        //    System.out.println("piece = "+piece+" "+piece.generatePossibleMoves(this).size());
+            //    System.out.println("piece = "+piece+" "+piece.generatePossibleMoves(this).size());
         }
         // TODO chaque move, le jouer et voir si ca met nous meme en echec
         return moves;
@@ -293,7 +404,7 @@ sb.append("\nmoves:");
 
             gameStateChess.getPieces()[currentMove.getDestination().getRow()][currentMove.getDestination().getColumn()] = pieceOfList;
 
-        }else if (currentMove.getMoveType() == MoveType.EP) {
+        } else if (currentMove.getMoveType() == MoveType.EP) {
 
             pieceOfList.setRow(currentMove.getDestination().getRow());
             pieceOfList.setColumn(currentMove.getDestination().getColumn());
@@ -308,7 +419,7 @@ sb.append("\nmoves:");
                 pieceOfList.setRow(currentMove.getSource().getRow());
                 pieceOfList.setColumn(6);
 
-            //    System.out.println("Catle King " + whiteKing + "-" + blackKing);
+                //    System.out.println("Catle King " + whiteKing + "-" + blackKing);
 
                 Rook rook = (Rook) findPieceIntoPieces(currentPlayer, currentMove.getSource().getRow(), 7);
                 rook.setColumn(5);
@@ -317,7 +428,7 @@ sb.append("\nmoves:");
                 pieceOfList.setRow(currentMove.getSource().getRow());
                 pieceOfList.setColumn(3);
 
-         //       System.out.println("grand Catle King " + whiteKing + "-" + blackKing);
+                //       System.out.println("grand Catle King " + whiteKing + "-" + blackKing);
 
                 Rook rook = (Rook) findPieceIntoPieces(currentPlayer, currentMove.getSource().getRow(), 0);
                 rook.setColumn(4);

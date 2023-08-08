@@ -34,7 +34,7 @@ public class Pawn extends Piece {
                 if (piece.getPieceType() == PieceType.EMPTY) {
 
 
-                    Case destination = new Case(piece.getRow(),piece.getColumn());
+                    Case destination = new Case(piece.getRow(), piece.getColumn());
 
                     if (destination.getRow() == 7 || destination.getRow() == 0) {
                         {
@@ -77,11 +77,11 @@ public class Pawn extends Piece {
             if (isInBounds(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1) && isInBounds(getColumn() + 1)) {
 
                 Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() + 1];
-                if (piece.getColor() != getColor()&&piece.getPieceType()!=PieceType.EMPTY) {
+                if (piece.getColor() != getColor() && piece.getPieceType() != PieceType.EMPTY) {
                     PieceMove pieceMove = new PieceMove(this);
                     Case source = new Case(getRow(), getColumn());
                     pieceMove.setSource(source);
-                    Case destination = new Case(piece.getRow(),piece.getColumn());
+                    Case destination = new Case(piece.getRow(), piece.getColumn());
 
                     if (destination.getRow() == 7 || destination.getRow() == 0) {
                         {
@@ -125,11 +125,11 @@ public class Pawn extends Piece {
             if (isInBounds(getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1) && isInBounds(getColumn() - 1)) {
 
                 Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() - 1];
-                if (piece.getColor() != getColor()&&piece.getPieceType()!=PieceType.EMPTY) {
+                if (piece.getColor() != getColor() && piece.getPieceType() != PieceType.EMPTY) {
                     PieceMove pieceMove = new PieceMove(this);
                     Case source = new Case(getRow(), getColumn());
                     pieceMove.setSource(source);
-                    Case destination = new Case(piece.getRow(),piece.getColumn());
+                    Case destination = new Case(piece.getRow(), piece.getColumn());
 
                     if (destination.getRow() == 7 || destination.getRow() == 0) {
                         {
@@ -183,7 +183,7 @@ public class Pawn extends Piece {
 
                 Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 2 : getRow() - 2][getColumn()];
                 if (piece.getPieceType() == PieceType.EMPTY) {
-                    Case destination = new Case(piece.getRow(),piece.getColumn());
+                    Case destination = new Case(piece.getRow(), piece.getColumn());
 
                     pieceMove.setDestination(destination);
                     pieceMove.setMoveType(MoveType.NA);
@@ -194,48 +194,47 @@ public class Pawn extends Piece {
         }
         // TODO
         // les prises EP
-    if (gameStateChess.getLastMove()!=null)
-    {
-        PieceMove lastMove=gameStateChess.getLastMove();
-        if (lastMove.getPiece().getPieceType()==PieceType.PAWN&&Math.abs(lastMove.getDestination().getRow()-lastMove.getSource().getRow())==2){
-            int pas=getColor() == Color.WHITE ?1:-1;
-            if (getRow()==lastMove.getDestination().getRow()){
-                 if (getColumn()+1==lastMove.getDestination().getColumn()){
+        if (gameStateChess.getLastMove() != null) {
+            PieceMove lastMove = gameStateChess.getLastMove();
+            if (lastMove.getPiece().getPieceType() == PieceType.PAWN && Math.abs(lastMove.getDestination().getRow() - lastMove.getSource().getRow()) == 2) {
+                int pas = getColor() == Color.WHITE ? 1 : -1;
+                if (getRow() == lastMove.getDestination().getRow()) {
+                    if (getColumn() + 1 == lastMove.getDestination().getColumn()) {
 
 
-                     PieceMove pieceMove = new PieceMove(this);
-                     Case source = new Case(getRow(), getColumn());
-                     pieceMove.setSource(source);
+                        PieceMove pieceMove = new PieceMove(this);
+                        Case source = new Case(getRow(), getColumn());
+                        pieceMove.setSource(source);
 
-                     Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1: getRow() - 1][getColumn()+1];
-                     if (piece.getPieceType() == PieceType.EMPTY) {
-                         Case destination = new Case(piece.getRow(),piece.getColumn());
+                        Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() + 1];
+                        if (piece.getPieceType() == PieceType.EMPTY) {
+                            Case destination = new Case(piece.getRow(), piece.getColumn());
 
-                         pieceMove.setDestination(destination);
-                         pieceMove.setMoveType(MoveType.EP);
+                            pieceMove.setDestination(destination);
+                            pieceMove.setMoveType(MoveType.EP);
 
-                         moves.add(pieceMove);
-                     }
+                            moves.add(pieceMove);
+                        }
 
-                }else  if (getColumn()-1==lastMove.getDestination().getColumn()){
-                     PieceMove pieceMove = new PieceMove(this);
-                     Case source = new Case(getRow(), getColumn());
-                     pieceMove.setSource(source);
+                    } else if (getColumn() - 1 == lastMove.getDestination().getColumn()) {
+                        PieceMove pieceMove = new PieceMove(this);
+                        Case source = new Case(getRow(), getColumn());
+                        pieceMove.setSource(source);
 
-                     Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1: getRow() - 1][getColumn()-1];
-                     if (piece.getPieceType() == PieceType.EMPTY) {
-                         Case destination = new Case(piece.getRow(),piece.getColumn());
+                        Piece piece = gameStateChess.getPieces()[getColor() == Color.WHITE ? getRow() + 1 : getRow() - 1][getColumn() - 1];
+                        if (piece.getPieceType() == PieceType.EMPTY) {
+                            Case destination = new Case(piece.getRow(), piece.getColumn());
 
-                         pieceMove.setDestination(destination);
-                         pieceMove.setMoveType(MoveType.EP);
+                            pieceMove.setDestination(destination);
+                            pieceMove.setMoveType(MoveType.EP);
 
-                         moves.add(pieceMove);
-                     }
+                            moves.add(pieceMove);
+                        }
+                    }
+
                 }
-
             }
         }
-    }
         return moves;
 
     }

@@ -12,8 +12,7 @@ IA algorithm implementations in Java
 
 ### Chess
 
-##### todo 
-
+##### todo
 
 - eval function (score) is basic + test
 

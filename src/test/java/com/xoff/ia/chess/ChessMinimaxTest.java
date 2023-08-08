@@ -5,7 +5,6 @@ import com.xoff.ia.common.Minimax;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ChessMinimaxTest {
@@ -18,7 +17,7 @@ public class ChessMinimaxTest {
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("elasped time " + timeElapsed / 1000.); // 34s
-        System.out.println("best move "+e);
+        System.out.println("best move " + e);
         assertNotNull(e.getBestMove());
     }
 
@@ -26,14 +25,14 @@ public class ChessMinimaxTest {
     @DisplayName("basic test testGameMinimax")
     public void testGameMinimax() {
         GameStateChess gameStateChess = new GameStateChess();
-        for (int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             Eval e = Minimax.minimax(gameStateChess, 2, true);
 
             gameStateChess = gameStateChess.play(e.getBestMove());
 
         }
 
-       assertNotNull(gameStateChess.toString());
+        assertNotNull(gameStateChess.toString());
     }
 
 }

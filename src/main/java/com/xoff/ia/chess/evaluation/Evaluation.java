@@ -10,56 +10,58 @@ import java.util.List;
 
 public class Evaluation {
 
-    private static boolean intoMagicSqaure(int row,int column){
-        return (row==3||row==4)&&(column==3||column==4);
+    private static boolean intoMagicSqaure(int row, int column) {
+        return (row == 3 || row == 4) && (column == 3 || column == 4);
     }
-    public static float evaluate(GameStateChess gameStateChess){
+
+    public static float evaluate(GameStateChess gameStateChess) {
         float score = 0f;
         List<Piece> piecesCurrent = (gameStateChess.getCurrentPlayer() == Color.WHITE) ? gameStateChess.getWhitePieces() : gameStateChess.getBlackPieces();
-        boolean isThereQueenCurrent=   piecesCurrent
-                .stream()
-                .allMatch((s) -> s.getPieceType()==PieceType.QUEEN);
+        boolean isThereQueenCurrent = piecesCurrent.stream().anyMatch((s) -> s.getPieceType() == PieceType.QUEEN);
 
         List<Piece> piecesOpp = (gameStateChess.getCurrentPlayer() != Color.WHITE) ? gameStateChess.getWhitePieces() : gameStateChess.getBlackPieces();
-        boolean isThereQueenOpp=  piecesOpp
-                .stream()
-                .allMatch((s) -> s.getPieceType()==PieceType.QUEEN);
-        GamePhase gamePhase=GamePhase.OPENING;
-        if (!isThereQueenCurrent||!isThereQueenOpp){
-            gamePhase=GamePhase.MIDDLE_GAME;
-            if (piecesCurrent.size()<8||piecesOpp.size()<8){
-                gamePhase=GamePhase.ENDING;
+        boolean isThereQueenOpp = piecesOpp.stream().anyMatch((s) -> s.getPieceType() == PieceType.QUEEN);
+
+
+        GamePhase gamePhase = GamePhase.OPENING;
+        if (!isThereQueenCurrent || !isThereQueenOpp) {
+            gamePhase = GamePhase.MIDDLE_GAME;
+            if (piecesCurrent.size() < 8 || piecesOpp.size() < 8) {
+                gamePhase = GamePhase.ENDING;
             }
         }
-
+        //  System.out.println(gamePhase+"bonsus piece cav "+isThereQueenOpp + "  "+isThereQueenCurrent);
         for (Piece piece : piecesCurrent) {
             score = score + piece.estimateValue();
             if (piece.getPieceType() == PieceType.KING) {
                 King k = (King) piece;
                 score = score + (k.isHasCastled() ? 0.5f : 0.f);
             }
-            if (piece.getPieceType()==PieceType.BISHOP||piece.getPieceType()==PieceType.KNIGHT||piece.getPieceType()==PieceType.PAWN){
-                score = score + (intoMagicSqaure(piece.getRow(),piece.getColumn()) ? 0.2f : 0.f);
-            }
-            switch (gamePhase){
-                case OPENING:
-                    if (piece.getPieceType()==PieceType.BISHOP||piece.getPieceType()==PieceType.KNIGHT){
+            if (piece.getPieceType() == PieceType.BISHOP || piece.getPieceType() == PieceType.KNIGHT || piece.getPieceType() == PieceType.PAWN) {
+                score = score + (intoMagicSqaure(piece.getRow(), piece.getColumn()) ? 0.13f : 0.f);
 
-                            score = score + (piece.isHasMoved() ? 0.2f : 0.f);
+            }
+            switch (gamePhase) {
+                case OPENING:
+                    if (piece.getPieceType() == PieceType.BISHOP || piece.getPieceType() == PieceType.KNIGHT) {
+
+                        score = score + (piece.isHasMoved() ? 0.11f : 0.f);
 
                     }
                     break;
-                case MIDDLE_GAME:break;
+                case MIDDLE_GAME:
+                    break;
                 case ENDING:
 
                     break;
             }
         }
+        /*
         for (Piece piece : piecesOpp) {
             score = score - piece.estimateValue();
             if (piece.getPieceType() == PieceType.KING) {
                 King k = (King) piece;
-                score = score + (k.isHasCastled() ? -0.2f : 0.f);
+                score = score + (k.isHasCastled() ? -0.23f : 0.f);
             }
 
             switch (gamePhase){
@@ -71,7 +73,8 @@ public class Evaluation {
             }
 
         }
-
+        */
+        //  System.out.println(score+" bonsus piece cav "+ gameStateChess.getCurrentPlayer());
 
 
         return score;

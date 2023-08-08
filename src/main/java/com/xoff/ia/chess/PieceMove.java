@@ -43,40 +43,30 @@ public class PieceMove implements Move {
         StringBuilder sb = new StringBuilder();
         if (piece.getPieceType() != PieceType.PAWN) {
             sb.append(piece.toString());
-        }
-        else{
-            if (moveType == MoveType.TAKE||moveType == MoveType.EP
+        } else {
+            if (moveType == MoveType.TAKE || moveType == MoveType.EP
 
             ) {
                 sb.append((char) ('a' + source.getColumn()));
             }
         }
         // sb.append(source);
-        if (moveType == MoveType.TAKE||moveType == MoveType.EP||moveType == MoveType.PROMOTION_ROOK_TAKE||
-                moveType == MoveType.PROMOTION_QUEEN_TAKE||
-                moveType == MoveType.PROMOTION_KNIGHT_TAKE||
-                moveType == MoveType.PROMOTION_BISHOP_TAKE
+        if (moveType == MoveType.TAKE || moveType == MoveType.EP || moveType == MoveType.PROMOTION_ROOK_TAKE || moveType == MoveType.PROMOTION_QUEEN_TAKE || moveType == MoveType.PROMOTION_KNIGHT_TAKE || moveType == MoveType.PROMOTION_BISHOP_TAKE
 
         ) {
             sb.append("x");
         }
         sb.append(destination);
-        if (moveType==MoveType.EP)
-        {
+        if (moveType == MoveType.EP) {
             sb.append("ep");
         }
-        if (moveType==MoveType.PROMOTION_BISHOP_TAKE||moveType==MoveType.PROMOTION_BISHOP)
-        {
+        if (moveType == MoveType.PROMOTION_BISHOP_TAKE || moveType == MoveType.PROMOTION_BISHOP) {
             sb.append("=B");
-        }else  if (moveType==MoveType.PROMOTION_QUEEN_TAKE||moveType==MoveType.PROMOTION_QUEEN)
-        {
+        } else if (moveType == MoveType.PROMOTION_QUEEN_TAKE || moveType == MoveType.PROMOTION_QUEEN) {
             sb.append("=B");
-        }else  if (moveType==MoveType.PROMOTION_ROOK_TAKE||moveType==MoveType.PROMOTION_ROOK)
-        {
+        } else if (moveType == MoveType.PROMOTION_ROOK_TAKE || moveType == MoveType.PROMOTION_ROOK) {
             sb.append("=R");
-        }
-        else  if (moveType==MoveType.PROMOTION_KNIGHT_TAKE||moveType==MoveType.PROMOTION_KNIGHT)
-        {
+        } else if (moveType == MoveType.PROMOTION_KNIGHT_TAKE || moveType == MoveType.PROMOTION_KNIGHT) {
             sb.append("=N");
         }
         return sb.toString();
