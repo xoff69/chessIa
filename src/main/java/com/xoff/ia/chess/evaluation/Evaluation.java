@@ -30,7 +30,11 @@ public class Evaluation {
                 gamePhase = GamePhase.ENDING;
             }
         }
+        // TODO forcer les coups: isEchec de l adversaire
+        // TODO : random si egal
+        // TODO : srt moves
         //  System.out.println(gamePhase+"bonsus piece cav "+isThereQueenOpp + "  "+isThereQueenCurrent);
+
         for (Piece piece : piecesCurrent) {
             score = score + piece.estimateValue();
             if (piece.getPieceType() == PieceType.KING) {
@@ -46,7 +50,6 @@ public class Evaluation {
                     if (piece.getPieceType() == PieceType.BISHOP || piece.getPieceType() == PieceType.KNIGHT) {
 
                         score = score + (piece.isHasMoved() ? 0.11f : 0.f);
-
                     }
                     break;
                 case MIDDLE_GAME:
@@ -75,7 +78,7 @@ public class Evaluation {
         }
         */
         //  System.out.println(score+" bonsus piece cav "+ gameStateChess.getCurrentPlayer());
-
+        System.out.println("Evaluation:"+ score+" gamePhase:"+gamePhase+ " "+gameStateChess);
 
         return score;
     }

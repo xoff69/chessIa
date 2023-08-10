@@ -17,6 +17,8 @@ public class GameStateTicTacToe extends GameState {
     private int dimension;
     private char[][] board;
 
+    // TODO array with all lines,column, diag
+
     private boolean currentPlayer;
 
     public GameStateTicTacToe(int dimension) {

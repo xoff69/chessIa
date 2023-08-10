@@ -158,9 +158,14 @@ public class GameStateChess extends GameState {
         gameStateChess.getWhitePieces().clear();
 
         String color = source.substring("state:".length(), source.indexOf("-"));
-        System.out.println("color " + color);
+       // System.out.println("color " + color);
+        if (color.contains("WHITE")){
+            gameStateChess.setCurrentPlayer(Color.WHITE);
+        }else {
+            gameStateChess.setCurrentPlayer(Color.BLACK);
+        }
         String suite = source.substring(source.indexOf("-") + 1);
-        System.out.println("suite " + suite);
+      //  System.out.println("suite " + suite);
         int r = 7;
         int c = 0;
         int i = 0;
@@ -188,8 +193,8 @@ public class GameStateChess extends GameState {
                     c++;
                     break;
                 case 'R':
-                    gameStateChess.getPieces()[r][c] = new Rook(r, c, Color.BLACK);
-                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.getPieces()[r][c] = new Rook(r, c, Color.WHITE);
+                    gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[r][c]);
                     c++;
                     break;
                 case 'n':
@@ -198,41 +203,41 @@ public class GameStateChess extends GameState {
                     c++;
                     break;
                 case 'N':
-                    gameStateChess.getPieces()[r][c] = new Knight(r, c, Color.BLACK);
-                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.getPieces()[r][c] = new Knight(r, c, Color.WHITE);
+                    gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[r][c]);
                     c++;
                     break;
                 case 'B':
-                    gameStateChess.getPieces()[r][c] = new Queen(r, c, Color.BLACK);
-                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.getPieces()[r][c] = new Bishop(r, c, Color.WHITE);
+                    gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[r][c]);
                     c++;
                     break;
                 case 'b':
-                    gameStateChess.getPieces()[r][c] = new Queen(r, c, Color.BLACK);
+                    gameStateChess.getPieces()[r][c] = new Bishop(r, c, Color.BLACK);
                     gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
                     c++;
                     break;
                 case 'q':
-                    gameStateChess.getPieces()[r][c] = new King(r, c, Color.BLACK);
+                    gameStateChess.getPieces()[r][c] = new Queen(r, c, Color.BLACK);
                     gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
                     gameStateChess.setBlackKing(gameStateChess.getPieces()[r][c]);
                     c++;
                     break;
                 case 'Q':
-                    gameStateChess.getPieces()[r][c] = new King(r, c, Color.BLACK);
-                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.getPieces()[r][c] = new Queen(r, c, Color.WHITE);
+                    gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[r][c]);
                     c++;
                     break;
                 case 'k':
-                    gameStateChess.getPieces()[r][c] = new Pawn(r, c, Color.BLACK);
+                    gameStateChess.getPieces()[r][c] = new King(r, c, Color.BLACK);
                     gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
                     gameStateChess.setBlackKing(gameStateChess.getPieces()[r][c]);
                     c++;
 
                     break;
                 case 'K':
-                    gameStateChess.getPieces()[r][c] = new Pawn(r, c, Color.BLACK);
-                    gameStateChess.getBlackPieces().add(gameStateChess.getPieces()[r][c]);
+                    gameStateChess.getPieces()[r][c] = new King(r, c, Color.WHITE);
+                    gameStateChess.getWhitePieces().add(gameStateChess.getPieces()[r][c]);
                     gameStateChess.setWhiteKing(gameStateChess.getPieces()[r][c]);
                     c++;
                     break;
@@ -254,8 +259,8 @@ public class GameStateChess extends GameState {
         moves = moves.substring("moves".length() + 1);
         StringTokenizer str = new StringTokenizer(moves, ",");
         while (str.hasMoreElements()) {
-            String token = str.nextToken();
-            System.out.println("a " + token);
+            String token = str.nextToken(); //TODO
+         //   System.out.println("a " + token);
             //gameStateChess.setLastMove(token);
         }
 

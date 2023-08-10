@@ -1,5 +1,6 @@
 package com.xoff.ia.chess;
 
+import com.xoff.ia.chess.builder.GameStateChessBuilder;
 import com.xoff.ia.chess.piece.Pawn;
 import com.xoff.ia.chess.piece.PieceType;
 import com.xoff.ia.common.Move;

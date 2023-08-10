@@ -1,5 +1,6 @@
 package com.xoff.ia.chess;
 
+import com.xoff.ia.chess.builder.GameStateChessBuilder;
 import com.xoff.ia.common.AlphaBeta;
 import com.xoff.ia.common.Eval;
 import org.junit.jupiter.api.DisplayName;
