@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.xoff.chessia</groupId>
-    <artifactId>chessia</artifactId>
+    <artifactId>ia-games</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>chessia</name>

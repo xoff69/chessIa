@@ -1,4 +1,4 @@
-# chessIa
+# ia-games
 
 IA algorithm implementations in Java
 
@@ -7,6 +7,7 @@ IA algorithm implementations in Java
 [Minimax] (https://en.wikipedia.org/wiki/Minimax)
 
 [AlphaBeta] (https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning)
+
 
 ## Games:
 
@@ -21,3 +22,7 @@ IA algorithm implementations in Java
 ### TicTacToe
 
 - brut test of the algorithms
+
+### Awele
+
+first step
