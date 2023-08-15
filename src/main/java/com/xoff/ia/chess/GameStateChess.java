@@ -158,14 +158,14 @@ public class GameStateChess extends GameState {
         gameStateChess.getWhitePieces().clear();
 
         String color = source.substring("state:".length(), source.indexOf("-"));
-       // System.out.println("color " + color);
-        if (color.contains("WHITE")){
+        // System.out.println("color " + color);
+        if (color.contains("WHITE")) {
             gameStateChess.setCurrentPlayer(Color.WHITE);
-        }else {
+        } else {
             gameStateChess.setCurrentPlayer(Color.BLACK);
         }
         String suite = source.substring(source.indexOf("-") + 1);
-      //  System.out.println("suite " + suite);
+        //  System.out.println("suite " + suite);
         int r = 7;
         int c = 0;
         int i = 0;
@@ -260,7 +260,7 @@ public class GameStateChess extends GameState {
         StringTokenizer str = new StringTokenizer(moves, ",");
         while (str.hasMoreElements()) {
             String token = str.nextToken(); //TODO
-         //   System.out.println("a " + token);
+            //   System.out.println("a " + token);
             //gameStateChess.setLastMove(token);
         }
 

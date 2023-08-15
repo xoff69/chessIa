@@ -78,7 +78,7 @@ public class Evaluation {
         }
         */
         //  System.out.println(score+" bonsus piece cav "+ gameStateChess.getCurrentPlayer());
-        System.out.println("Evaluation:"+ score+" gamePhase:"+gamePhase+ " "+gameStateChess);
+        System.out.println("Evaluation:" + score + " gamePhase:" + gamePhase + " " + gameStateChess);
 
         return score;
     }

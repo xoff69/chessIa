@@ -8,6 +8,7 @@ IA algorithm implementations in Java
 
 [AlphaBeta] (https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning)
 
+[Oware]  (https://en.wikipedia.org/wiki/Oware)
 
 ## Games:
 
@@ -23,6 +24,10 @@ IA algorithm implementations in Java
 
 - brut test of the algorithms
 
-### Awele
+### Oware (aka Awale)
 
-first step
+- first step
+
+- Rules
+
+

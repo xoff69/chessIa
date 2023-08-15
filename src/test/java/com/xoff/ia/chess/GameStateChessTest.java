@@ -134,7 +134,7 @@ public class GameStateChessTest {
         String source = "state:BLACK-\n" + "r n b q k b n r \n" + "p p p p p p p p \n" + ". . . . . . . . \n" + ". . . . . . . . \n" + ". . . . . . . . \n" + "N . . . . . . . \n" + "P P P P P P P P \n" + "R . B Q K B N R \n" + "##moves:Na3,b6 ";
         GameStateChess gameStateChess = GameStateChess.string2GameStateChess(source);
         assertNotNull(gameStateChess);
-        assertEquals(gameStateChess.getBlackPieces().size(),16);
-        assertEquals(gameStateChess.getWhitePieces().size(),16);
+        assertEquals(gameStateChess.getBlackPieces().size(), 16);
+        assertEquals(gameStateChess.getWhitePieces().size(), 16);
     }
 }
