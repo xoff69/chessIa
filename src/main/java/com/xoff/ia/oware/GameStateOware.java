@@ -102,11 +102,17 @@ public class GameStateOware extends GameState {
                         continue;
                     }
                 }
-                // FIXME On ne peut pas jouer un coup qui met l adversaire en famine
 
                 OwareMove move = new OwareMove();
                 move.setSource(i);
-                moves.add(move);
+                // don t allow a move who can starve opponent
+                GameStateOware gameStateOware=this.copy();
+                gameStateOware.play(move);
+
+                System.out.println("play "+gameStateOware);
+                if (!gameStateOware.isStarving(!currentPlayer)) {
+                    moves.add(move);
+                }
             }
 
         }
@@ -138,9 +144,12 @@ public class GameStateOware extends GameState {
         }
        if (!(absoluteIndex>indexByPlayer(currentPlayer)&&absoluteIndex<indexByPlayer(currentPlayer)+DIMENSION/22)){
            // collect
-           absoluteIndex = (absoluteIndex - 1) % DIMENSION;
-           while (absoluteIndex>indexByPlayer(!currentPlayer)){
+           System.out.println("collect "+absoluteIndex);
+
+           while (absoluteIndex>=indexByPlayer(!currentPlayer)){
                if (gameStateOware.getBoard()[absoluteIndex]==2||gameStateOware.getBoard()[absoluteIndex]==3){
+
+                   System.out.println(absoluteIndex+ " collect ramassage "+gameStateOware.getBoard()[absoluteIndex]);
                     if (currentPlayer){
                         gameStateOware.setBagA(gameStateOware.getBagA()+gameStateOware.getBoard()[absoluteIndex]);
 
@@ -150,6 +159,8 @@ public class GameStateOware extends GameState {
                    gameStateOware.getBoard()[absoluteIndex]=0;
                }
                else break;
+
+               absoluteIndex = (absoluteIndex - 1) % DIMENSION;
            }
        }
 
