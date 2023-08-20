@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class GameSateAweleTest {
+class GameStateAweleTest {
 
     @Test
     void testConstructeur() {
@@ -18,13 +19,7 @@ class GameSateAweleTest {
         assertNotNull(gameSateAwele.getBoard());
     }
 
-    @Test
-    void isTerminal() {
-    }
 
-    @Test
-    void score() {
-    }
 
     @Test
     void getPossibleMoves() {
@@ -94,9 +89,29 @@ class GameSateAweleTest {
         owareMove.setSource(3);
         gameSateAwele.getBoard()[6] = 1;
         gameSateAwele.getBoard()[7] = 1;
+        System.out.println(gameSateAwele.toString());
         gameSateAwele = gameSateAwele.play(owareMove);
         System.out.println(gameSateAwele.toString());
         assertTrue(gameSateAwele.getBoard()[3] == 0);
     }
 
+
+    @Test
+    @DisplayName("score")
+    void score() {
+        GameStateOware gameSateAwele = new GameStateOware();
+        OwareMove owareMove = new OwareMove();
+        owareMove.setSource(3);
+        gameSateAwele.getBoard()[6] = 1;
+        gameSateAwele.getBoard()[7] = 1;
+
+        gameSateAwele = gameSateAwele.play(owareMove);
+
+        assertEquals(gameSateAwele.score(),-4);
+    }
+
+    @Test
+    @DisplayName("end game ie terminal")
+    void isTerminal() {
+    }
 }
