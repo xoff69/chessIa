@@ -52,10 +52,10 @@ class GameStateAweleTest {
         List<Move> moves = gameSateAwele.getPossibleMoves();
         System.out.println("MOVES ");
         for (Move move : moves) {
-            System.out.println(move);
+            System.out.println("m= "+move);
         }
-
-        assertTrue(gameSateAwele.getPossibleMoves().size() == 0);
+        System.out.println("gen ");
+        assertTrue(moves.size() == 0);
     }
 
     @Test
@@ -113,5 +113,22 @@ class GameStateAweleTest {
     @Test
     @DisplayName("end game ie terminal")
     void isTerminal() {
+        GameStateOware gameSateAwele = new GameStateOware();
+
+        for (int i = 0; i < 6; i++) {
+            gameSateAwele.getBoard()[i] = 0;
+        }
+        gameSateAwele.getBoard()[3] = 4;
+        gameSateAwele.getBoard()[6] = 0;
+        gameSateAwele.getBoard()[7] = 0;
+        gameSateAwele.getBoard()[8] = 0;
+        gameSateAwele.getBoard()[9] = 0;
+        gameSateAwele.getBoard()[10] = 0;
+        gameSateAwele.getBoard()[11] = 0;
+        gameSateAwele.setCurrentPlayer(false);
+        List<Move> moves = gameSateAwele.getPossibleMoves();
+
+
+        assertTrue(gameSateAwele.isTerminal());
     }
 }
